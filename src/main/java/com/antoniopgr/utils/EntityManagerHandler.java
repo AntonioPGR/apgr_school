@@ -8,18 +8,18 @@ import jakarta.persistence.Persistence;
 public class EntityManagerHandler {
 
 	private final EntityManagerFactory entity_manager_factory;
-	private final EntityManager entity_manager;
-	private final EntityTransaction entity_transaction;
+	private EntityManager entity_manager;
+	private EntityTransaction entity_transaction;
 
 	public EntityManagerHandler(String persistenceUnitName) {
 		this.entity_manager_factory = Persistence.createEntityManagerFactory(persistenceUnitName);
-		this.entity_manager = entity_manager_factory.createEntityManager();
-		this.entity_transaction = entity_manager.getTransaction();
 	}
 
 	public void persistNCommit(Object o){
+		beginTransaction();
 		persist(o);
 		commitTransaction();
+		closeManager();
 	}
 
 	public void persist(Object o){
@@ -27,6 +27,12 @@ public class EntityManagerHandler {
 	}
 
 	public void beginTransaction(){
+		if(entity_manager == null){
+			this.entity_manager = getFactory().createEntityManager();
+		}
+		if(entity_transaction == null){
+			this.entity_transaction = getManager().getTransaction();
+		}
 		geTransaction().begin();
 	}
 
@@ -36,6 +42,8 @@ public class EntityManagerHandler {
 
 	public void closeManager(){
 		getManager().close();
+		this.entity_transaction = null;
+		this.entity_manager = null;
 	}
 
 	public EntityManagerFactory getFactory() {
