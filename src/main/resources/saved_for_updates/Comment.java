@@ -16,7 +16,7 @@ public class Comment {
 	User author;
 	@Column(name = "Text")
 	String text;
-	@Column(name = "DateTime")
+	@Column(name = "DateTie")
 	LocalDateTime datetime;
 
 	public Comment(User author, String text, LocalDateTime datetime) {

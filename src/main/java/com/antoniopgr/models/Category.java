@@ -14,20 +14,10 @@ public class Category {
 	@Column(name = "Description")
 	String description;
 
+	public Category(){}
+
 	public Category(String name, String description) {
 		this.name = name;
 		this.description = description;
-	}
-
-	public int getId() {
-		return id;
-	}
-
-	public String getName() {
-		return name;
-	}
-
-	public String getDescription() {
-		return description;
 	}
 }

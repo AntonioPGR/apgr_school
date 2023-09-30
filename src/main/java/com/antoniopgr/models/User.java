@@ -18,6 +18,12 @@ public class User {
 	@Column(name = "Password")
 	String password;
 
+	public User(){}
+
+	public User(int id) {
+		this.id = id;
+	}
+
 	public User(String first_name, String last_name, String email, String password) {
 		this.first_name = first_name;
 		this.last_name = last_name;
@@ -25,23 +31,7 @@ public class User {
 		this.password = password;
 	}
 
-	public int getId() {
-		return id;
-	}
-
-	public String getFirst_name() {
+	public String getFirstName() {
 		return first_name;
-	}
-
-	public String getLast_name() {
-		return last_name;
-	}
-
-	public String getEmail() {
-		return email;
-	}
-
-	public String getPassword() {
-		return password;
 	}
 }

@@ -18,16 +18,4 @@ public class PostsCategories {
 		this.post_id = post_id;
 		this.category_id = category_id;
 	}
-
-	public int getId() {
-		return id;
-	}
-
-	public int getPostId() {
-		return post_id;
-	}
-
-	public int getCategoryId() {
-		return category_id;
-	}
 }

@@ -11,8 +11,6 @@ public class Main {
 		MainMenu main_menu = new MainMenu();
 
 		Screen.printHeader("Pacheco's Blog");
-		Screen.jumpLine();
-		Screen.printLn("Bem vindo ao blog do Antonio!");
 		main_menu.execute();
 	}
 }

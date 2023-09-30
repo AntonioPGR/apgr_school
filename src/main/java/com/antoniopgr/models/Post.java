@@ -19,9 +19,9 @@ public class Post {
 	String content;
 	@Column(name = "DateTime")
 	LocalDateTime datetime = LocalDateTime.now();
-	@ManyToMany
-	@JoinTable(name = "posts_tags", joinColumns = @JoinColumn(name = "PostId"), inverseJoinColumns = @JoinColumn(name = "TagId"))
-	List<Tag> tags;
+	//@ManyToMany
+	//@JoinTable(name = "posts_tags", joinColumns = @JoinColumn(name = "PostId"), inverseJoinColumns = @JoinColumn(name = "TagId"))
+	//List<Tag> tags;
 	@ManyToMany
 	@JoinTable(name = "posts_categories", joinColumns = @JoinColumn(name = "PostId"), inverseJoinColumns = @JoinColumn(name = "CategoryId"))
 	List<Category> categories;
@@ -29,17 +29,21 @@ public class Post {
 	@JoinColumn(name = "AuthorID")
 	User author;
 
-	public Post(String title, String content, List<Tag> tags, List<Category> categories, User author) {
+	public Post(){}
+
+	public Post(String title, String content, /*List<Tag> tags,*/ List<Category> categories, User author) {
 		this.title = title;
 		this.content = content;
-		this.tags = tags;
+		//this.tags = tags;
 		this.categories = categories;
 		this.author = author;
 	}
 
-	public int getId() {
-		return id;
+	/*
+	public List<Tag> getTags() {
+		return tags;
 	}
+	*/
 
 	public String getTitle() {
 		return title;
@@ -51,14 +55,6 @@ public class Post {
 
 	public LocalDateTime getDatetime() {
 		return datetime;
-	}
-
-	public List<Tag> getTags() {
-		return tags;
-	}
-
-	public List<Category> getCategories() {
-		return categories;
 	}
 
 	public User getAuthor() {

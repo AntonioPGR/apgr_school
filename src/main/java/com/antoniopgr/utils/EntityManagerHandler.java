@@ -1,9 +1,6 @@
 package com.antoniopgr.utils;
 
-import jakarta.persistence.EntityManager;
-import jakarta.persistence.EntityManagerFactory;
-import jakarta.persistence.EntityTransaction;
-import jakarta.persistence.Persistence;
+import jakarta.persistence.*;
 
 public class EntityManagerHandler {
 
@@ -22,8 +19,30 @@ public class EntityManagerHandler {
 		closeManager();
 	}
 
+	public void mergeNCommit(Object o){
+		beginTransaction();
+		merge(o);
+		commitTransaction();
+		closeManager();
+	}
+
+	public void removeNCommit(Object o){
+		beginTransaction();
+		remove(o);
+		commitTransaction();
+		closeManager();
+	}
+
 	public void persist(Object o){
 		getManager().persist(o);
+	}
+
+	public void merge(Object o){
+		getManager().merge(o);
+	}
+
+	public void remove(Object o){
+		getManager().remove(o);
 	}
 
 	public void beginTransaction(){
@@ -46,15 +65,20 @@ public class EntityManagerHandler {
 		this.entity_manager = null;
 	}
 
-	public EntityManagerFactory getFactory() {
+	public <T> TypedQuery<T> createQuery(String jpql, Class<T> resultClass){
+		beginTransaction();
+		return entity_manager.createQuery(jpql, resultClass);
+	}
+
+	private EntityManagerFactory getFactory() {
 		return entity_manager_factory;
 	}
 
-	public EntityManager getManager() {
+	private EntityManager getManager() {
 		return entity_manager;
 	}
 
-	public EntityTransaction geTransaction() {
+	private EntityTransaction geTransaction() {
 		return entity_transaction;
 	}
 }
