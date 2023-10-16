@@ -3,34 +3,49 @@ package apgr_school.api.users;
 import jakarta.annotation.Nullable;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
+import lombok.AllArgsConstructor;
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 import java.sql.Date;
 
-@Entity(name = "users")
+@Entity
+@Table(name = "Users")
+@Getter
+@NoArgsConstructor
+@AllArgsConstructor
+@EqualsAndHashCode(of = "id")
 public class User {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "Id")
+	@NotNull
 	private Long id;
-	@Column(name = "Name")
 	@NotNull
 	private String name;
-	@Column(name = "DateOfBirth")
 	@NotNull
 	private Date date_of_birth;
-	@Column(name = "Email")
 	@NotNull
 	private String email;
-	@Column(name = "Cellphone")
 	@NotNull
 	private String cellphone;
-	@Column(name = "Password")
 	@NotNull
 	private String password;
-	@Column(name = "Gender")
-	@NotNull
-	private String gender;
-	@Column(name = "PhotoPath")
+	@Nullable
+	@Enumerated(EnumType.STRING)
+	private EnumGender gender;
 	@Nullable
 	private String photo_path;
+
+	public User(UserRegisterData user_data){
+		id = user_data.id();
+		name = user_data.name();
+		date_of_birth = user_data.date_of_birth();
+		email = user_data.email();
+		cellphone = user_data.cellphone();
+		password = user_data.password();
+		gender = user_data.gender();
+		photo_path = user_data.PhotoPath();
+	}
+
 }
