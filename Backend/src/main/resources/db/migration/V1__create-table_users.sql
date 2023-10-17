@@ -7,5 +7,6 @@ CREATE TABLE Users(
     password TINYTEXT NOT NULL,
     gender CHAR(1) NOT NULL,
     photo_path VARCHAR(50) default null,
-    PRIMARY KEY (id)
+    PRIMARY KEY (id),
+    UNIQUE(email)
 )

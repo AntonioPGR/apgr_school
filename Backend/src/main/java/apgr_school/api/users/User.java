@@ -19,25 +19,16 @@ import java.sql.Date;
 public class User {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@NotNull
 	private Long id;
-	@NotNull
 	private String name;
-	@NotNull
 	private Date date_of_birth;
-	@NotNull
 	private String email;
-	@NotNull
 	private String cellphone;
-	@NotNull
 	private String password;
-	@Nullable
 	@Enumerated(EnumType.STRING)
 	private EnumGender gender;
-	@Nullable
 	private String photo_path;
-
-	public User(UserRegisterData user_data){
+	public User(UserRegisterDTO user_data){
 		id = user_data.id();
 		name = user_data.name();
 		date_of_birth = user_data.date_of_birth();
