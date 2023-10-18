@@ -1,8 +1,6 @@
 package apgr_school.api.users;
 
-import jakarta.annotation.Nullable;
 import jakarta.persistence.*;
-import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -28,6 +26,8 @@ public class User {
 	@Enumerated(EnumType.STRING)
 	private EnumGender gender;
 	private String photo_path;
+	private Boolean active;
+
 	public User(UserRegisterDTO user_data){
 		id = user_data.id();
 		name = user_data.name();
@@ -36,7 +36,18 @@ public class User {
 		cellphone = user_data.cellphone();
 		password = user_data.password();
 		gender = user_data.gender();
-		photo_path = user_data.PhotoPath();
+		photo_path = user_data.photo_path();
 	}
 
+	public void updateInformation(UserUpdateDTO user_data){
+		name = user_data.name() != null? user_data.name() : name;
+		email = user_data.email() != null? user_data.email() : email;
+		cellphone = user_data.cellphone() != null? user_data.cellphone() : cellphone;
+		password = user_data.password() != null? user_data.password() : password;
+		photo_path = user_data.photo_path() != null? user_data.photo_path() : photo_path;
+	}
+
+	public void exclude() {
+		active = false;
+	}
 }
