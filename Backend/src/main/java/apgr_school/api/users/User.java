@@ -1,5 +1,7 @@
 package apgr_school.api.users;
 
+import apgr_school.api.users.DTOs.UserRegisterDTO;
+import apgr_school.api.users.DTOs.UserUpdateDTO;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;

@@ -1,4 +1,4 @@
-package apgr_school.api.users;
+package apgr_school.api.users.DTOs;
 
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;

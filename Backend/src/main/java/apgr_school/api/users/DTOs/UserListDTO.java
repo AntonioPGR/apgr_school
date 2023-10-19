@@ -1,5 +1,7 @@
-package apgr_school.api.users;
+package apgr_school.api.users.DTOs;
 
+import apgr_school.api.users.EnumGender;
+import apgr_school.api.users.User;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 
