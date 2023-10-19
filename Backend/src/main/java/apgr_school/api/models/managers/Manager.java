@@ -1,8 +1,6 @@
-package apgr_school.api.managers;
+package apgr_school.api.models.managers;
 
-import apgr_school.api.users.User;
 import jakarta.persistence.*;
-import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -19,5 +17,5 @@ public class Manager {
 	private Long id;
 	@OneToOne
 	@JoinColumn(name = "UserID", referencedColumnName = "Id", nullable = false)
-	private User User;
+	private apgr_school.api.models.users.User User;
 }

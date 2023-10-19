@@ -1,7 +1,7 @@
-package apgr_school.api.courses;
+package apgr_school.api.models.courses;
 
-import apgr_school.api.classes.Class;
-import apgr_school.api.students.Student;
+import apgr_school.api.models.classes.Class;
+import apgr_school.api.models.students.Student;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;

@@ -1,6 +1,6 @@
-package apgr_school.api.users;
+package apgr_school.api.models.users;
 
-import apgr_school.api.users.DTOs.*;
+import apgr_school.api.models.users.DTOs.*;
 import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;

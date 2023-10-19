@@ -1,4 +1,4 @@
-package apgr_school.api.users;
+package apgr_school.api.models.users;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;

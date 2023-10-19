@@ -1,9 +1,7 @@
-package apgr_school.api.tasks;
+package apgr_school.api.models.tasks;
 
-import apgr_school.api.classes.Class;
-import jakarta.annotation.Nullable;
+import apgr_school.api.models.classes.Class;
 import jakarta.persistence.*;
-import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;

@@ -1,23 +1,26 @@
-package apgr_school.api.professors;
+package apgr_school.api.models.students;
 
-import apgr_school.api.users.User;
+import apgr_school.api.models.courses.Course;
 import jakarta.persistence.*;
-import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
+import java.util.List;
+
 @Entity
-@Table(name = "professors")
-@Getter
+@Table(name = "students")
 @AllArgsConstructor
 @NoArgsConstructor
-public class Professor {
+@Getter
+public class Student {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "Id")
 	private Long id;
 	@OneToOne
 	@JoinColumn(name = "UserID", referencedColumnName = "Id", nullable = false)
-	private User User;
+	private apgr_school.api.models.users.User User;
+	@ManyToMany(mappedBy = "students")
+	private List<Course> courses;
 }
