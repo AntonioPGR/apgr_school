@@ -1,4 +1,4 @@
-package apgr_school.api.infra.security;
+package apgr_school.api.infra.authentication;
 
 import apgr_school.api.models.users.User;
 import apgr_school.api.models.users.UserRepository;

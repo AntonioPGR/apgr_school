@@ -1,4 +1,4 @@
-package apgr_school.api.infra.security.DTO;
+package apgr_school.api.infra.authentication.DTO;
 
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
