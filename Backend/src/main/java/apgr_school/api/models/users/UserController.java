@@ -8,6 +8,8 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponentsBuilder;
 
@@ -20,11 +22,14 @@ public class UserController {
 
 	@Autowired
 	private UserRepository user_repository;
+	@Autowired
+	private PasswordEncoder password_encoder;
+
 
 	@PostMapping
 	@Transactional
 	public ResponseEntity<UserInformationDTO> POST(@RequestBody @Valid UserRegisterDTO user_data, UriComponentsBuilder uri_builder){
-		User new_user = new User(user_data);
+		User new_user = new User(user_data, password_encoder.encode(user_data.password()));
 		user_repository.save(new_user);
 		URI uri = uri_builder.path("users/{id}/").buildAndExpand(new_user.getId()).toUri();
 		UserInformationDTO user_dto = new UserInformationDTO(new_user);

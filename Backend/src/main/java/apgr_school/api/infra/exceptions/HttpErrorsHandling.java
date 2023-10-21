@@ -1,4 +1,4 @@
-package apgr_school.api.infra;
+package apgr_school.api.infra.exceptions;
 
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.http.ResponseEntity;
@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 import java.util.List;
 
 @RestControllerAdvice
-public class ErrorHanlder {
+public class HttpErrorsHandling {
 
 	@ExceptionHandler(EntityNotFoundException.class)
 	public ResponseEntity handle404(){
