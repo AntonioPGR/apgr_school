@@ -1,4 +1,4 @@
-package apgr_school.api.infra.security.DTO;
+package apgr_school.api.infra.token.DTO;
 
 public record TokenResponseDTO (
 	String token
