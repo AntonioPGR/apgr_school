@@ -1,7 +1,9 @@
 package apgr_school.api.models.tasks;
 
-import apgr_school.api.models.classes.Class;
+import apgr_school.api.models.school_classes.SchoolClass;
+import jakarta.annotation.Nullable;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -9,23 +11,26 @@ import lombok.NoArgsConstructor;
 import java.sql.Date;
 
 @Entity
-@Table(name = "tasks")
+@Table(name = "Tasks")
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
 public class Task {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "Id")
+	@NotNull
 	private Long id;
-	@Column(name = "Title", nullable = false)
+	@NotNull
 	private String title;
-	@Column(name = "Description", nullable = true)
+	@Nullable
+	@Column(name = "Description")
 	private String description;
-	@Column(name = "DueDate", nullable = false)
+	@NotNull
+	@Column(name = "DueDate")
 	@Temporal(TemporalType.DATE)
 	private Date due_date;
+	@NotNull
 	@ManyToOne
-	@JoinColumn(name = "Class", referencedColumnName = "Id", nullable = false)
-	private Class reference_class;
+	@JoinColumn(name = "Class", referencedColumnName = "id")
+	private SchoolClass school_class;
 }

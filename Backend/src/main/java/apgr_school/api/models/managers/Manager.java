@@ -6,16 +6,15 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 @Entity
-@Table(name = "managers")
+@Table(name = "Managers")
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter
 public class Manager {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "Id")
 	private Long id;
 	@OneToOne
-	@JoinColumn(name = "UserID", referencedColumnName = "Id", nullable = false)
+	@JoinColumn(name = "userId", referencedColumnName = "Id", nullable = false)
 	private apgr_school.api.models.users.User User;
 }
