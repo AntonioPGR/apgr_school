@@ -1,0 +1,12 @@
+CREATE TABLE Users (
+  id INT PRIMARY KEY UNIQUE AUTO_INCREMENT,
+  name VARCHAR(100) NOT NULL,
+  date_of_birth DATE NOT NULL,
+  email VARCHAR(70) NOT NULL UNIQUE,
+  cellphone VARCHAR(25) NOT NULL UNIQUE,
+  password TINYTEXT NOT NULL,
+  gender CHAR(1) NOT NULL,
+  photo_path VARCHAR(255),
+  active TINYINT(1) NOT NULL DEFAULT 1,
+  permissions TEXT
+);

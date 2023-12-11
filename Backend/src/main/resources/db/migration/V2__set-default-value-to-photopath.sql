@@ -1,0 +1,2 @@
+ALTER TABLE Users
+ALTER photo_path SET DEFAULT NULL;
