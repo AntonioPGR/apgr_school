@@ -1,6 +1,6 @@
-package school.pachecos.users.dtos;
+package school.pachecos.api.users.dtos;
 
-import school.pachecos.users.UserEntity;
+import school.pachecos.api.users.UserEntity;
 
 import java.time.LocalDate;
 

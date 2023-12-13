@@ -1,4 +1,4 @@
-package school.pachecos.users;
+package school.pachecos.api.users;
 
 import jakarta.annotation.Nullable;
 import jakarta.persistence.*;
@@ -6,25 +6,33 @@ import jakarta.validation.constraints.*;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import school.pachecos.users.dtos.UserCreateDTO;
-import school.pachecos.users.dtos.UserUpdateDTO;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
+import school.pachecos.api.users.dtos.UserCreateDTO;
+import school.pachecos.api.users.dtos.UserUpdateDTO;
 
 import java.time.LocalDate;
+import java.util.Collection;
+import java.util.List;
 
 @Table(name = "Users")
 @Entity(name = "UserEntity")
 @Getter
 @NoArgsConstructor
 @EqualsAndHashCode(of = "id")
-public class UserEntity {
+public class UserEntity implements UserDetails {
 
 	@Id @GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long id;
 	@NotBlank
 	private String name;
 	@Past
+	@NotNull
 	private LocalDate birth_date;
 	@Email
+	@NotBlank
 	private String email;
 	@NotBlank
 	@Pattern(regexp = "[+][\\d]{2,3}[(][\\d]{2,3}[)][\\d]{9}")
@@ -32,9 +40,11 @@ public class UserEntity {
 	@NotBlank
 	@Pattern(regexp = "^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*\\W).{8,}$")
 	private String password;
+	@NotBlank
 	private String gender;
 	@Nullable
 	private String photo_path;
+	@NotNull
 	private boolean active;
 	private String permissions;
 
@@ -58,14 +68,14 @@ public class UserEntity {
 	}
 
 	public UserEntity(UserCreateDTO user_info) {
-		this.name = user_info.name();
-		this.birth_date = user_info.birth_date();
-		this.email = user_info.email();
-		this.cellphone = user_info.cellphone();
-		this.password = user_info.password();
-		this.gender = user_info.gender();
-		this.photo_path = user_info.photo_path();
-		this.active = true;
+		name = user_info.name();
+		birth_date = user_info.birth_date();
+		email = user_info.email();
+		cellphone = user_info.cellphone();
+		password = user_info.password();
+		gender = user_info.gender();
+		photo_path = user_info.photo_path();
+		active = true;
 	}
 
 	public void update(UserUpdateDTO user_info) {
@@ -79,11 +89,45 @@ public class UserEntity {
 	}
 
 	public void desactive(){
-		active = false;
+		active = true;
 	}
 
 	public void active(){
 		active = true;
 	}
 
+	@Override
+	public Collection<? extends GrantedAuthority> getAuthorities() {
+		return List.of(new SimpleGrantedAuthority("ROLE_USER"));
+	}
+
+	@Override
+	public String getPassword() {
+		return password;
+	}
+
+	@Override
+	public String getUsername() {
+		return email;
+	}
+
+	@Override
+	public boolean isAccountNonExpired() {
+		return true;
+	}
+
+	@Override
+	public boolean isAccountNonLocked() {
+		return true;
+	}
+
+	@Override
+	public boolean isCredentialsNonExpired() {
+		return true;
+	}
+
+	@Override
+	public boolean isEnabled() {
+		return true;
+	}
 }

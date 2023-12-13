@@ -1,7 +1,7 @@
-package school.pachecos.users.dtos;
+package school.pachecos.api.users.dtos;
 
 import jakarta.annotation.Nullable;
-import school.pachecos.users.UserEntity;
+import school.pachecos.api.users.UserEntity;
 
 import java.time.LocalDate;
 

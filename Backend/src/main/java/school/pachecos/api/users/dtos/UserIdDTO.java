@@ -1,7 +1,7 @@
-package school.pachecos.users.dtos;
+package school.pachecos.api.users.dtos;
 
 import jakarta.validation.constraints.NotNull;
-import school.pachecos.users.UserEntity;
+import school.pachecos.api.users.UserEntity;
 
 public record UserIdDTO(
 		@NotNull

@@ -1,42 +1,37 @@
-package school.pachecos.users.dtos;
+package school.pachecos.api.users.dtos;
 
 import jakarta.annotation.Nullable;
+import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
-import school.pachecos.users.UserEntity;
+import school.pachecos.api.users.UserEntity;
 
 import java.time.LocalDate;
 
-public record UserUpdateDTO(
-		@NotNull
-		Long id,
-		@Nullable
+public record UserCreateDTO(
+		@NotBlank
 		String name,
-		@Nullable
+		@NotNull
 		LocalDate birth_date,
-		@Nullable
+		@NotBlank
 		String email,
-		@Nullable
+		@NotBlank
 		String cellphone,
-		@Nullable
+		@NotBlank
 		String gender,
 		@Nullable
 		String photo_path,
-		@Nullable
-		String permissions,
-		@Nullable
+		@NotBlank
 		String password
 ) {
 
-	public UserUpdateDTO(UserEntity user_entity){
+	public UserCreateDTO(UserEntity user_entity){
 		this(
-				user_entity.getId(),
 				user_entity.getName(),
 				user_entity.getBirth_date(),
 				user_entity.getEmail(),
 				user_entity.getCellphone(),
 				user_entity.getGender(),
 				user_entity.getPhoto_path(),
-				user_entity.getPermissions(),
 				user_entity.getPassword()
 		);
 	}
