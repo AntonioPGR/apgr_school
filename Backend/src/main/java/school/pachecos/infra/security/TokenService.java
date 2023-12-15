@@ -3,9 +3,15 @@ package school.pachecos.infra.security;
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
 import com.auth0.jwt.exceptions.JWTCreationException;
+import com.auth0.jwt.exceptions.JWTVerificationException;
+import jakarta.servlet.http.HttpServletRequest;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 import school.pachecos.api.users.UserEntity;
+import school.pachecos.api.users.UserRepository;
+
 import java.time.Instant;
 import java.time.LocalDateTime;
 import java.time.ZoneOffset;
@@ -14,15 +20,21 @@ import java.time.ZoneOffset;
 public class TokenService {
 
 	@Value("${api.security.token.secret}")
-	private String secret;
+	private String SECRET;
+	@Value("${api.security.token.issuer}")
+	private String ISSUER;
+	@Value("${api.security.token.expiration_time}")
+	private int EXPIRATION_TIME;
+	@Autowired
+	UserRepository user_repository;
 
 	public String createToken(UserEntity user){
 		try {
-			Algorithm algorithm = Algorithm.HMAC256(secret);
+			Algorithm algorithm = Algorithm.HMAC256(SECRET);
 			return JWT.create()
-					.withIssuer("API Pacheco's School")
+					.withIssuer(ISSUER)
 					.withExpiresAt(getExpiresAt())
-					.withSubject(user.getEmail())
+					.withSubject(user.getUsername())
 					.sign(algorithm);
 		} catch (JWTCreationException exception){
 			return null;
@@ -30,24 +42,33 @@ public class TokenService {
 	}
 
 	private Instant getExpiresAt(){
-		return LocalDateTime.now().plusDays(1).toInstant(ZoneOffset.of("-03:00"));
+		return LocalDateTime.now().plusDays(EXPIRATION_TIME).toInstant(ZoneOffset.of("-03:00"));
 	}
 
-	/*public Boolean verifyToken(){
-		String token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXUyJ9.eyJpc3MiOiJhdXRoMCJ9.AbIJTDMFc7yUa5MhvcP03nJPyCPzZtQcGEp-zWfOkEE";
-		DecodedJWT decodedJWT;
+	public String getTokenSubject(String token){
 		try {
-			Algorithm algorithm = Algorithm.RSA256(rsaPublicKey, rsaPrivateKey);
-			JWTVerifier verifier = JWT.require(algorithm)
-					// specify an specific claim validations
-					.withIssuer("auth0")
-					// reusable verifier instance
-					.build();
-
-			decodedJWT = verifier.verify(token);
+			Algorithm algorithm = Algorithm.HMAC256(SECRET);
+			return JWT.require(algorithm)
+					.withIssuer(ISSUER)
+					.build()
+					.verify(token)
+					.getSubject();
 		} catch (JWTVerificationException exception){
 			return null;
 		}
-	}*/
+	}
+
+	public String getToken(HttpServletRequest request){
+		String token = request.getHeader("Authorization");
+		if(token == null){
+			return null;
+		}
+		return token.replace("Bearer", "").trim();
+	}
+
+	public UserDetails gerUserFromToken(String token){
+		String token_subject = getTokenSubject(token);
+		return user_repository.findByEmail(token_subject);
+	}
 
 }

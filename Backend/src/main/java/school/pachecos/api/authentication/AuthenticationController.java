@@ -20,17 +20,25 @@ import school.pachecos.infra.security.TokenService;
 public class AuthenticationController {
 
 	@Autowired
-	AuthenticationManager authentication_manager;
-	@Autowired
 	TokenService token_service;
+	@Autowired
+	private AuthenticationManager authentication_manager;
 
 	@PostMapping("/login")
 	public ResponseEntity login(@RequestBody @Valid LoginDTO login_info){
-		UsernamePasswordAuthenticationToken auth_info = new UsernamePasswordAuthenticationToken(login_info.email(), login_info.password());
-		Authentication authentication = authentication_manager.authenticate(auth_info);
-		String jwt_token = token_service.createToken((UserEntity) authentication.getPrincipal());
-		LoginResponseDTO response_dto = new LoginResponseDTO(jwt_token);
+		Authentication auth = authenticateUser(login_info);
+		LoginResponseDTO response_dto = generateTokenResponse(auth);
 		return ResponseEntity.ok().body(response_dto);
+	}
+
+	private Authentication authenticateUser(LoginDTO login_info){
+		UsernamePasswordAuthenticationToken auth_info = new UsernamePasswordAuthenticationToken(login_info.email(), login_info.password());
+		return authentication_manager.authenticate(auth_info);
+	}
+
+	private LoginResponseDTO generateTokenResponse(Authentication auth){
+		String jwt_token = token_service.createToken((UserEntity) auth.getPrincipal());
+		return new LoginResponseDTO(jwt_token);
 	}
 
 }
