@@ -11,14 +11,13 @@ import school.pachecos.api.users.UserEntity;
 import java.time.LocalDateTime;
 
 @Entity(name="LessonEntity")
-@Table(name="Lesson")
+@Table(name="lessons")
 @Getter
 @Setter(AccessLevel.PRIVATE)
 @EqualsAndHashCode(of="id")
 @NoArgsConstructor
 @AllArgsConstructor
 public class LessonEntity {
-
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long id;
@@ -27,8 +26,10 @@ public class LessonEntity {
 	private String name;
 	@NotNull
 	private LocalDateTime datetime;
-	@ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-	@JoinColumn(name = "professor_id", nullable = false)
+	@NotNull
+	private int duration_in_minutes;
+	@ManyToOne(cascade = CascadeType.ALL)
+	@JoinColumn(name = "professor", nullable = false)
 	private UserEntity professor;
 
 	public LessonEntity(LessonCreateProfessorDTO user_info){

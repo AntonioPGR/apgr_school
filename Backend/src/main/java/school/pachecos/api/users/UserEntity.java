@@ -53,7 +53,7 @@ public class UserEntity implements UserDetails {
 	private boolean active;
 	private String permissions;
 
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "professor_id", cascade = CascadeType.ALL)
+	@OneToMany(mappedBy = "professor", cascade = CascadeType.ALL)
 	private List<LessonEntity> lessons;
 
 

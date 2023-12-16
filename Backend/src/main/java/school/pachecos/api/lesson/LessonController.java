@@ -30,19 +30,19 @@ public class LessonController {
 	}
 
 	@GetMapping("/{id}")
-	public ResponseEntity<LessonReturnInfoDTO> getLesson(@PathVariable("id") long user_id){
-		LessonReturnInfoDTO user_dto = lesson_service.getLessonReferenceById(user_id);
-		return ResponseEntity.ok().body(user_dto);
+	public ResponseEntity<LessonReturnInfoDTO> getLesson(@PathVariable("id") long lesson_id){
+		LessonReturnInfoDTO lesson_dto = lesson_service.getLessonReferenceById(lesson_id);
+		return ResponseEntity.ok().body(lesson_dto);
 	}
 
 
 	// POST
 	@PostMapping
 	@Transactional
-	public ResponseEntity createLesson(@RequestBody @Valid LessonCreateIdDTO user_info) throws URISyntaxException {
-		long user_id = lesson_service.createLesson(user_info).id();
-		URI user_uri = new URI("localhost:8000/users/"+user_id);
-		return ResponseEntity.created(user_uri).build();
+	public ResponseEntity createLesson(@RequestBody @Valid LessonCreateIdDTO lesson_info) throws URISyntaxException {
+		long lesson_id = lesson_service.createLesson(lesson_info).id();
+		URI lesson_uri = new URI("localhost:8000/lessons/"+lesson_id);
+		return ResponseEntity.created(lesson_uri).build();
 	}
 
 	@PostMapping("/search")
@@ -54,16 +54,16 @@ public class LessonController {
 	// PUT
 	@PutMapping
 	@Transactional
-	public ResponseEntity editLesson(@RequestBody @Valid LessonUpdateIdDTO user_info){
-		lesson_service.updateLesson(user_info);
+	public ResponseEntity editLesson(@RequestBody @Valid LessonUpdateIdDTO lesson_info){
+		lesson_service.updateLesson(lesson_info);
 		return ResponseEntity.noContent().build();
 	}
 
 	// DELETE
 	@DeleteMapping
 	@Transactional
-	public ResponseEntity deleteLesson(@RequestBody @Valid LessonIdDTO user_info){
-		lesson_service.deleteLesson(user_info.id());
+	public ResponseEntity deleteLesson(@RequestBody @Valid LessonIdDTO lesson_id_dto){
+		lesson_service.deleteLesson(lesson_id_dto.id());
 		return ResponseEntity.noContent().build();
 	}
 

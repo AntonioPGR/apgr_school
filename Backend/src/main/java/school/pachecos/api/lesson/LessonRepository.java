@@ -12,7 +12,7 @@ public interface LessonRepository extends JpaRepository<LessonEntity, Long> {
 
 	@Query("SELECT l FROM LessonEntity l WHERE " +
 		"l.name LIKE CONCAT('%', :name, '%') " +
-		"OR l.datetime = :datetime;"
+		"OR l.datetime = :datetime  "
 	)
 	List<LessonEntity> searchLessons(String name, LocalDateTime datetime);
 }

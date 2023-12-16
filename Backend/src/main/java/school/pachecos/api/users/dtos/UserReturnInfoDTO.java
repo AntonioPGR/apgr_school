@@ -11,8 +11,7 @@ public record UserReturnInfoDTO(
 		String email,
 		String cellphone,
 		String gender,
-		String photo_path,
-		String permissions
+		String photo_path
 ) {
 
 	public UserReturnInfoDTO(UserEntity user_entity){
@@ -23,8 +22,7 @@ public record UserReturnInfoDTO(
 				user_entity.getEmail(),
 				user_entity.getCellphone(),
 				user_entity.getGender(),
-				user_entity.getPhoto_path(),
-				user_entity.getPermissions()
+				user_entity.getPhoto_path()
 		);
 	}
 

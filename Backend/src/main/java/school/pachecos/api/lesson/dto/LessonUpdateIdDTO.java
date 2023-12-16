@@ -8,13 +8,14 @@ import school.pachecos.api.lesson.LessonEntity;
 import java.time.LocalDateTime;
 
 public record LessonUpdateIdDTO(
-		@NotNull long id,
-		@Nullable @NotBlank String name,
+		@NotNull Long id,
+		@Nullable String name,
 		@Nullable LocalDateTime datetime,
-		@Nullable long professor_id) {
-
+		@Nullable Long professor_id,
+		@Nullable int duration_in_minutes
+) {
 	public LessonUpdateIdDTO(LessonEntity entity){
-		this(entity.getId(), entity.getName(), entity.getDatetime(), entity.getProfessor().getId());
+		this(entity.getId(), entity.getName(), entity.getDatetime(), entity.getProfessor().getId(), entity.getDuration_in_minutes());
 	}
 
 }

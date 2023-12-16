@@ -19,21 +19,21 @@ public class LessonService {
 	UserRepository user_repository;
 
 	public Page<LessonReturnInfoDTO> listLessonsPerPage(Pageable pageable){
-		Page<LessonEntity> users_page = lesson_repository.findAll(pageable);
-		return users_page.map(LessonReturnInfoDTO::new);
+		Page<LessonEntity> lessons_page = lesson_repository.findAll(pageable);
+		return lessons_page.map(LessonReturnInfoDTO::new);
 	}
 
-	public LessonReturnInfoDTO getLessonReferenceById(Long user_id) {
-		LessonEntity user_entity = lesson_repository.getReferenceById(user_id);
-		return new LessonReturnInfoDTO(user_entity);
+	public LessonReturnInfoDTO getLessonReferenceById(Long id) {
+		LessonEntity lesson_entity = lesson_repository.getReferenceById(id);
+		return new LessonReturnInfoDTO(lesson_entity);
 	}
 
 	public LessonReturnInfoDTO createLesson(LessonCreateIdDTO lesson_id_info) {
 		UserEntity professor = getProfessorFromId(lesson_id_info.professor_id());
-		LessonCreateProfessorDTO lesson_create_dto = new LessonCreateProfessorDTO(lesson_id_info.name(), lesson_id_info.datetime(), professor);
-		LessonEntity user_entity = new LessonEntity(lesson_create_dto);
-		lesson_repository.save(user_entity);
-		return new LessonReturnInfoDTO(user_entity);
+		LessonCreateProfessorDTO lesson_create_dto = new LessonCreateProfessorDTO(lesson_id_info.name(), lesson_id_info.datetime(), professor, lesson_id_info.duration_in_minutes());
+		LessonEntity lesson_entity = new LessonEntity(lesson_create_dto);
+		lesson_repository.save(lesson_entity);
+		return new LessonReturnInfoDTO(lesson_entity);
 	}
 
 	public List<LessonReturnInfoDTO> searchLessons(LessonSearchDTO search){
@@ -42,8 +42,11 @@ public class LessonService {
 	}
 
 	public void updateLesson(LessonUpdateIdDTO lesson_info) {
-		UserEntity professor = getProfessorFromId(lesson_info.professor_id());
-		LessonUpdateProfessorDTO lesson_update_dto  = new LessonUpdateProfessorDTO(lesson_info.id(), lesson_info.name(), lesson_info.datetime(), professor);
+		UserEntity professor = null;
+		if(lesson_info.professor_id() != null){
+			professor = getProfessorFromId(lesson_info.professor_id());
+		}
+		LessonUpdateProfessorDTO lesson_update_dto  = new LessonUpdateProfessorDTO(lesson_info.id(), lesson_info.name(), lesson_info.datetime(), professor, lesson_info.duration_in_minutes());
 		LessonEntity lesson = lesson_repository.getReferenceById(lesson_info.id());
 		lesson.update(lesson_update_dto);
 	}
