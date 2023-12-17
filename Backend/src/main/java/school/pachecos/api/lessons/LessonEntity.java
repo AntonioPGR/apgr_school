@@ -1,14 +1,17 @@
-package school.pachecos.api.lesson;
+package school.pachecos.api.lessons;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import lombok.*;
 import org.hibernate.validator.constraints.Length;
-import school.pachecos.api.lesson.dto.LessonCreateProfessorDTO;
-import school.pachecos.api.lesson.dto.LessonUpdateProfessorDTO;
+import school.pachecos.api.courses.CourseEntity;
+import school.pachecos.api.lessons.dto.LessonCreateProfessorDTO;
+import school.pachecos.api.lessons.dto.LessonUpdateProfessorDTO;
+import school.pachecos.api.tasks.TaskEntity;
 import school.pachecos.api.users.UserEntity;
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Entity(name="LessonEntity")
 @Table(name="lessons")
@@ -28,9 +31,16 @@ public class LessonEntity {
 	private LocalDateTime datetime;
 	@NotNull
 	private int duration_in_minutes;
+
 	@ManyToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "professor", nullable = false)
 	private UserEntity professor;
+
+	@OneToMany(mappedBy = "lesson")
+	private List<TaskEntity> tasks;
+
+	@ManyToMany(mappedBy = "lessons")
+	private List<CourseEntity> courses;
 
 	public LessonEntity(LessonCreateProfessorDTO user_info){
 		this.setName(user_info.name());

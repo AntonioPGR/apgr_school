@@ -1,6 +1,5 @@
-package school.pachecos.api.lesson.dto;
+package school.pachecos.api.lessons.dto;
 
-import school.pachecos.api.lesson.LessonEntity;
 import school.pachecos.api.users.UserEntity;
 
 import java.time.LocalDateTime;

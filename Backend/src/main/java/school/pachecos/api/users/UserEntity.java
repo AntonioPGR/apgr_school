@@ -9,14 +9,14 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import school.pachecos.api.lesson.LessonEntity;
+import school.pachecos.api.lessons.LessonEntity;
+import school.pachecos.api.tasks.TaskEntity;
 import school.pachecos.api.users.dtos.UserCreateDTO;
 import school.pachecos.api.users.dtos.UserUpdateDTO;
 
 import java.time.LocalDate;
 import java.util.Collection;
 import java.util.List;
-import java.util.Set;
 
 @Table(name = "Users")
 @Entity(name = "UserEntity")
@@ -56,6 +56,9 @@ public class UserEntity implements UserDetails {
 	@OneToMany(mappedBy = "professor", cascade = CascadeType.ALL)
 	private List<LessonEntity> lessons;
 
+	@ManyToMany(mappedBy = "students")
+	private List<TaskEntity> tasks;
+
 
 	// CONSTRUCTORS
 	public UserEntity(String name, LocalDate birth_date, String email, String cellphone, String password, String gender, @Nullable String photo_path) {
@@ -91,7 +94,7 @@ public class UserEntity implements UserDetails {
 	}
 
 	public void desactivete(){
-		active = true;
+		active = false;
 	}
 	public void activete(){
 		active = true;

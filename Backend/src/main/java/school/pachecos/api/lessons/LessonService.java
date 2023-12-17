@@ -1,10 +1,10 @@
-package school.pachecos.api.lesson;
+package school.pachecos.api.lessons;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
-import school.pachecos.api.lesson.dto.*;
+import school.pachecos.api.lessons.dto.*;
 import school.pachecos.api.users.UserEntity;
 import school.pachecos.api.users.UserRepository;
 

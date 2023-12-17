@@ -1,4 +1,4 @@
-package school.pachecos.api.lesson.dto;
+package school.pachecos.api.lessons.dto;
 
 import jakarta.annotation.Nullable;
 
