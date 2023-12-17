@@ -5,6 +5,8 @@ import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import lombok.*;
+import school.pachecos.api.courses.dtos.CourseEditDTO;
+import school.pachecos.api.courses.dtos.CourseNoIdDTO;
 import school.pachecos.api.lessons.LessonEntity;
 import school.pachecos.api.users.UserEntity;
 
@@ -42,4 +44,13 @@ public class CourseEntity {
 	)
 	private List<LessonEntity> lessons;
 
+	public CourseEntity(CourseNoIdDTO course_info){
+		this.setName(course_info.name());
+		this.setDescription(course_info.description());
+	}
+
+	public void update(CourseEditDTO edit_info){
+		this.setName(edit_info.name() != null? edit_info.name() : name);
+		this.setDescription(edit_info.description() != null? edit_info.description() : description);
+	}
 }

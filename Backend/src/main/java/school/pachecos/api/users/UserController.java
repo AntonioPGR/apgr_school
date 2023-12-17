@@ -9,6 +9,7 @@ import org.springframework.data.web.PageableDefault;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import school.pachecos.api.users.dtos.*;
+import school.pachecos.commons.dtos.IdDTO;
 
 import java.net.URI;
 import java.net.URISyntaxException;
@@ -46,7 +47,7 @@ public class UserController {
 
 	@PostMapping("/active")
 	@Transactional
-	public ResponseEntity activeUser(@RequestBody @Valid UserIdDTO user_info) throws URISyntaxException {
+	public ResponseEntity activeUser(@RequestBody @Valid IdDTO user_info) throws URISyntaxException {
 		user_service.activeUser(user_info.id());
 		URI user_uri = new URI("localhost:8000/users/"+user_info.id());
 		return ResponseEntity.created(user_uri).build();
@@ -69,14 +70,14 @@ public class UserController {
 	// DELETE
 	@DeleteMapping
 	@Transactional
-	public ResponseEntity desactiveUser(@RequestBody @Valid UserIdDTO user_info){
+	public ResponseEntity desactiveUser(@RequestBody @Valid IdDTO user_info){
 		user_service.desactiveUser(user_info.id());
 		return ResponseEntity.noContent().build();
 	}
 
 	@DeleteMapping("/delete")
 	@Transactional
-	public ResponseEntity deleteUser(@RequestBody @Valid UserIdDTO user_info){
+	public ResponseEntity deleteUser(@RequestBody @Valid IdDTO user_info){
 		user_service.deleteUser(user_info.id());
 		return ResponseEntity.noContent().build();
 	}

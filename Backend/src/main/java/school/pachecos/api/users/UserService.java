@@ -5,6 +5,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import school.pachecos.api.users.dtos.*;
+import school.pachecos.commons.dtos.IdDTO;
 
 import java.util.Collection;
 import java.util.List;
@@ -21,15 +22,15 @@ public class UserService {
 		return list_user_entity.map(UserReturnInfoDTO::new);
 	}
 
-	public UserReturnInfoDTO getUserReferenceById(long user_id){
+	public UserReturnInfoDTO getUserReferenceById(Long user_id){
 		UserEntity user_entity = getUserEntityById(user_id);
 		return new UserReturnInfoDTO(user_entity);
 	}
 
-	public UserIdDTO createUser(UserCreateDTO user_info){
+	public IdDTO createUser(UserCreateDTO user_info){
 		UserEntity user_entity = new UserEntity(user_info);
 		user_repository.save(user_entity);
-		return new UserIdDTO(user_entity.getId());
+		return new IdDTO(user_entity.getId());
 	}
 
 	public List<UserReturnInfoDTO> searchInUsers(UserSearchDTO search){
@@ -42,24 +43,24 @@ public class UserService {
 		user_entity.update(update_info);
 	}
 
-	public void desactiveUser(long id){
+	public void desactiveUser(Long id){
 		UserEntity user_entity = getUserEntityById(id);
 		user_entity.desactivete();
 	}
 
-	public void activeUser(long id){
+	public void activeUser(Long id){
 		UserEntity user_entity = getUserEntityById(id);
 		user_entity.activete();
 	}
 
-	public void deleteUser(long id){
+	public void deleteUser(Long id){
 		UserEntity user_entity = getUserEntityById(id);
 		user_repository.delete(user_entity);
 	}
 
 
 	// ENTITIES METHODS
-	private UserEntity getUserEntityById(long user_id){
+	private UserEntity getUserEntityById(Long user_id){
 		return user_repository.getReferenceById(user_id);
 	}
 
