@@ -9,6 +9,7 @@ import org.springframework.data.web.PageableDefault;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import school.pachecos.api.lessons.dto.*;
+import school.pachecos.commons.dtos.IdDTO;
 
 import java.net.URI;
 import java.net.URISyntaxException;
@@ -62,7 +63,7 @@ public class LessonController {
 	// DELETE
 	@DeleteMapping
 	@Transactional
-	public ResponseEntity deleteLesson(@RequestBody @Valid LessonIdDTO lesson_id_dto){
+	public ResponseEntity deleteLesson(@RequestBody @Valid IdDTO lesson_id_dto){
 		lesson_service.deleteLesson(lesson_id_dto.id());
 		return ResponseEntity.noContent().build();
 	}

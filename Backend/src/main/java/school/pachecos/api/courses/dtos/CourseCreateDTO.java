@@ -5,14 +5,14 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import school.pachecos.api.courses.CourseEntity;
 
-public record CourseDTO(
-		@NotNull Long id,
+public record CourseCreateDTO(
 		@NotNull @NotBlank String name,
 		@Nullable String description
-) {
+)
+{
 
-	public CourseDTO(CourseEntity entity){
-		this(entity.getId(), entity.getName(), entity.getDescription());
+	public CourseCreateDTO(CourseEntity entity){
+		this(entity.getName(), entity.getDescription());
 	}
 
 }

@@ -6,12 +6,11 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
-import school.pachecos.api.tasks.dtos.TaskCreateDTO;
+import org.springframework.web.bind.annotation.*;
+import school.pachecos.api.tasks.dtos.TaskCreateWithIDsDTO;
+import school.pachecos.api.tasks.dtos.TaskEditWithIDsDTO;
 import school.pachecos.api.tasks.dtos.TaskReturnInfoDTO;
+import school.pachecos.commons.dtos.IdDTO;
 
 import java.net.URI;
 import java.net.URISyntaxException;
@@ -39,10 +38,26 @@ public class TaskController {
 
 	// POST
 	@PostMapping
-	public ResponseEntity createTask(TaskCreateDTO new_task) throws URISyntaxException {
-		/*long new_task_id = task_service.createTask(new_task).id();
-		URI task_uri = new URI("http://localhost:8000/tasks/"+new_task_id);*/
-		return ResponseEntity.ok().build();
+	public ResponseEntity<URI> createTask(TaskCreateWithIDsDTO new_task) throws URISyntaxException {
+		long new_task_id = task_service.createTask(new_task).id();
+		URI new_task_uri = new URI("http://localhost:8000/tasks/"+new_task_id);
+		return ResponseEntity.created(new_task_uri).build();
+	}
+
+	// PUT
+	@PutMapping
+	public ResponseEntity<URI> editTask(TaskEditWithIDsDTO edited_task) throws URISyntaxException {
+		long edited_task_id = task_service.editTask(edited_task).id();
+		URI edited_task_uri = new URI("http://localhost:8000/tasks/"+edited_task_id);
+		return ResponseEntity.created(edited_task_uri).build();
+	}
+
+
+	// DELETE
+	@DeleteMapping
+	public ResponseEntity deleteTask(IdDTO id_dto){
+		task_service.deleteTask(id_dto.id());
+		return ResponseEntity.noContent().build();
 	}
 
 }
