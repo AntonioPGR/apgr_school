@@ -5,7 +5,7 @@ import jakarta.validation.constraints.NotNull;
 
 import java.sql.Date;
 
-public record EnrollmentEditWithIdsDTO(
+public record EnrollmentUpdateIdDTO(
 		@NotNull Long id,
 		@Nullable Long course_id,
 		@Nullable Long student_id,

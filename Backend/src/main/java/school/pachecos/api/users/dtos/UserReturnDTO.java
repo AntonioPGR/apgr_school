@@ -4,7 +4,7 @@ import school.pachecos.api.users.UserEntity;
 
 import java.time.LocalDate;
 
-public record UserReturnInfoDTO(
+public record UserReturnDTO(
 		Long id,
 		String name,
 		LocalDate birth_date,
@@ -14,7 +14,7 @@ public record UserReturnInfoDTO(
 		String photo_path
 ) {
 
-	public UserReturnInfoDTO(UserEntity user_entity){
+	public UserReturnDTO(UserEntity user_entity){
 		this(
 				user_entity.getId(),
 				user_entity.getName(),

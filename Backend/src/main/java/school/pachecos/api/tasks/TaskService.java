@@ -1,51 +1,43 @@
 package school.pachecos.api.tasks;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import school.pachecos.api.lessons.LessonEntity;
 import school.pachecos.api.lessons.LessonRepository;
 import school.pachecos.api.tasks.dtos.*;
+import school.pachecos.commons.classes.BaseApiService;
 
 
 @Service
-public class TaskService {
+public class TaskService extends BaseApiService<TaskEntity, TaskCreateEntityDTO, TaskUpdateEntityDTO, TaskReturnDTO> {
 
 	@Autowired
 	private TaskRepository task_repository;
 	@Autowired
 	private LessonRepository lesson_repository;
 
-	public Page<TaskReturnInfoDTO> listTasksPerPage(Pageable pageable){
-		Page<TaskEntity> tasks_page = task_repository.findAll(pageable);
-		return tasks_page.map(TaskReturnInfoDTO::new);
+	public TaskReturnDTO update(TaskCreateIdDTO task_dto) {
+		LessonEntity lesson_entity = getLesson(task_dto.lesson_id());
+		return this.create(new TaskCreateEntityDTO(task_dto, lesson_entity));
 	}
 
-	public TaskReturnInfoDTO findTaskById(Long id) {
-		TaskEntity task_entity = task_repository.getReferenceById(id);
-		return new TaskReturnInfoDTO(task_entity);
+	public TaskReturnDTO update(TaskUpdateIdDTO update_dto) {
+		LessonEntity lesson_entity = update_dto.lesson_id() != null? getLesson(update_dto.lesson_id()) : null;
+		return this.update(update_dto.id(), new TaskUpdateEntityDTO(update_dto, lesson_entity));
 	}
 
-	public TaskReturnInfoDTO createTask(TaskCreateWithIDsDTO new_task_ids) {
-		LessonEntity lesson_entity = lesson_repository.getReferenceById(new_task_ids.lesson_id());
-		TaskCreateWithEntitiesDTO new_task_entities = new TaskCreateWithEntitiesDTO(new_task_ids, lesson_entity);
-		TaskEntity task_entity = new TaskEntity(new_task_entities);
-		task_repository.save(task_entity);
-		return new TaskReturnInfoDTO(task_entity);
+	public LessonEntity getLesson(Long id){
+		return lesson_repository.getReferenceById(id);
 	}
 
-	public TaskReturnInfoDTO editTask(TaskEditWithIDsDTO edited_task_ids) {
-		LessonEntity lesson_entity = edited_task_ids.lesson_id() != null? lesson_repository.getReferenceById(edited_task_ids.lesson_id()) : null;
-		TaskEditWithEntitiesDTO edited_task_entities = new TaskEditWithEntitiesDTO(edited_task_ids, lesson_entity);
-		TaskEntity task_entity = task_repository.getReferenceById(edited_task_ids.id());
-		task_entity.update(edited_task_entities);
-		return new TaskReturnInfoDTO(task_entity);
+	@Override
+	protected TaskReturnDTO convertToReturnDTO(TaskEntity entity) {
+		return new TaskReturnDTO(entity);
 	}
 
-	public void deleteTask(Long id) {
-		TaskEntity task_entity = task_repository.getReferenceById(id);
-		task_repository.delete(task_entity);
+	@Override
+	protected TaskEntity convertToEntity(TaskCreateEntityDTO create_dto) {
+		return new TaskEntity(create_dto);
 	}
 
 }

@@ -5,10 +5,10 @@ import jakarta.validation.constraints.NotNull;
 import java.time.LocalDateTime;
 
 
-public record TaskCreateWithIDsDTO(
+public record TaskCreateIdDTO(
 		@NotNull String title,
-		@NotNull LocalDateTime dueDate,
+		@NotNull LocalDateTime due_date,
 		@Nullable String description,
-		@NotNull long lesson_id
+		@NotNull Long lesson_id
 )
 {}

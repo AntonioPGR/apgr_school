@@ -7,14 +7,14 @@ import school.pachecos.api.users.UserEntity;
 
 import java.sql.Date;
 
-public record EnrollmentCreateWithEntitiesDTO(
+public record EnrollmentCreateEntityDTO(
 		@NotNull CourseEntity course,
 		@NotNull UserEntity student,
 		@NotNull Date enrollment_date,
 		@Nullable Date end_date
 ) {
 
-	public EnrollmentCreateWithEntitiesDTO(EnrollmentCreateWithIdsDTO enrollment_id, CourseEntity course, UserEntity student){
+	public EnrollmentCreateEntityDTO(EnrollmentCreatIdDTO enrollment_id, CourseEntity course, UserEntity student){
 		this(course, student, enrollment_id.enrollment_date(), enrollment_id.end_date());
 	}
 

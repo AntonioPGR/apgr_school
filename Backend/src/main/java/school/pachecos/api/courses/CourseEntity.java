@@ -5,10 +5,11 @@ import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import lombok.*;
-import school.pachecos.api.courses.dtos.CourseEditDTO;
+import school.pachecos.api.courses.dtos.CourseUpdateDTO;
 import school.pachecos.api.courses.dtos.CourseCreateDTO;
 import school.pachecos.api.lessons.LessonEntity;
 import school.pachecos.api.users.UserEntity;
+import school.pachecos.commons.classes.BaseApiEntity;
 
 import java.util.List;
 
@@ -18,7 +19,7 @@ import java.util.List;
 @Setter(AccessLevel.PRIVATE)
 @NoArgsConstructor
 @AllArgsConstructor
-public class CourseEntity {
+public class CourseEntity extends BaseApiEntity<CourseUpdateDTO> {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -49,7 +50,7 @@ public class CourseEntity {
 		this.setDescription(course_info.description());
 	}
 
-	public void update(CourseEditDTO edit_info){
+	public void update(CourseUpdateDTO edit_info){
 		this.setName(edit_info.name() != null? edit_info.name() : name);
 		this.setDescription(edit_info.description() != null? edit_info.description() : description);
 	}

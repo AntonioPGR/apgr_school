@@ -13,6 +13,7 @@ import school.pachecos.api.lessons.LessonEntity;
 import school.pachecos.api.tasks.TaskEntity;
 import school.pachecos.api.users.dtos.UserCreateDTO;
 import school.pachecos.api.users.dtos.UserUpdateDTO;
+import school.pachecos.commons.classes.BaseApiEntity;
 
 import java.time.LocalDate;
 import java.util.Collection;
@@ -23,11 +24,11 @@ import java.util.List;
 @Getter
 @Setter(AccessLevel.PRIVATE)
 @NoArgsConstructor
-@EqualsAndHashCode(of = "id")
-public class UserEntity implements UserDetails {
+@AllArgsConstructor
+public class UserEntity extends BaseApiEntity<UserUpdateDTO> implements UserDetails {
 
 	@Id @GeneratedValue(strategy = GenerationType.IDENTITY)
-	private long id;
+	private Long id;
 	@NotBlank
 	@Length(max = 100)
 	private String name;

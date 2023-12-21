@@ -6,10 +6,12 @@ import jakarta.validation.constraints.NotNull;
 import lombok.*;
 import org.hibernate.validator.constraints.Length;
 import school.pachecos.api.courses.CourseEntity;
-import school.pachecos.api.lessons.dto.LessonCreateProfessorDTO;
-import school.pachecos.api.lessons.dto.LessonUpdateProfessorDTO;
+import school.pachecos.api.lessons.dto.LessonCreateEntityDTO;
+import school.pachecos.api.lessons.dto.LessonUpdateEntityDTO;
 import school.pachecos.api.tasks.TaskEntity;
 import school.pachecos.api.users.UserEntity;
+import school.pachecos.commons.classes.BaseApiEntity;
+
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -17,10 +19,9 @@ import java.util.List;
 @Table(name="lessons")
 @Getter
 @Setter(AccessLevel.PRIVATE)
-@EqualsAndHashCode(of="id")
 @NoArgsConstructor
 @AllArgsConstructor
-public class LessonEntity {
+public class LessonEntity extends BaseApiEntity<LessonUpdateEntityDTO> {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long id;
@@ -42,13 +43,13 @@ public class LessonEntity {
 	@ManyToMany(mappedBy = "lessons")
 	private List<CourseEntity> courses;
 
-	public LessonEntity(LessonCreateProfessorDTO user_info){
+	public LessonEntity(LessonCreateEntityDTO user_info){
 		this.setName(user_info.name());
 		this.setDatetime(user_info.datetime());
 		this.setProfessor(user_info.professor());
 	}
 
-	public void update(LessonUpdateProfessorDTO lessonUpdateDto) {
+	public void update(LessonUpdateEntityDTO lessonUpdateDto) {
 		setName(lessonUpdateDto.name() != null? lessonUpdateDto.name() : name);
 		setDatetime(lessonUpdateDto.datetime() != null? lessonUpdateDto.datetime() : datetime);
 		setProfessor(lessonUpdateDto.professor() != null? lessonUpdateDto.professor() : professor);

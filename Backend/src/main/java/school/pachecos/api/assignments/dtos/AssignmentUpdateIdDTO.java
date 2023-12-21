@@ -1,8 +1,8 @@
-package school.pachecos.api.students_tasks.dtos;
+package school.pachecos.api.assignments.dtos;
 
 import jakarta.annotation.Nullable;
 
-public record StudentsTasksUpdateWithIdsDTO(
+public record AssignmentUpdateIdDTO(
 		Long id,
 		@Nullable Integer is_done,
 		@Nullable Long task_id,

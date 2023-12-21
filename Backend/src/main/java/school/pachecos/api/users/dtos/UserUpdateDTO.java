@@ -3,10 +3,11 @@ package school.pachecos.api.users.dtos;
 import jakarta.annotation.Nullable;
 import jakarta.validation.constraints.NotNull;
 import school.pachecos.api.users.UserEntity;
+import school.pachecos.commons.interfaces.BaseUpdateDTO;
 
 import java.time.LocalDate;
 
-public record UserUpdateDTO(
+public record UserUpdateDTO (
 		@NotNull
 		Long id,
 		@Nullable
@@ -25,7 +26,7 @@ public record UserUpdateDTO(
 		String permissions,
 		@Nullable
 		String password
-) {
+) implements BaseUpdateDTO {
 
 	public UserUpdateDTO(UserEntity user_entity){
 		this(
@@ -41,4 +42,8 @@ public record UserUpdateDTO(
 		);
 	}
 
+	@Override
+	public Long getId() {
+		return null;
+	}
 }

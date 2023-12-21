@@ -5,7 +5,7 @@ import jakarta.validation.constraints.NotNull;
 
 import java.sql.Date;
 
-public record EnrollmentCreateWithIdsDTO(
+public record EnrollmentCreatIdDTO(
 		@NotNull Long course_id,
 		@NotNull Long student_id,
 		@NotNull Date enrollment_date,
