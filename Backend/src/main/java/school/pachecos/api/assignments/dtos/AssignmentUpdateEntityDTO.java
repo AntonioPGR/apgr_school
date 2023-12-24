@@ -3,7 +3,7 @@ package school.pachecos.api.assignments.dtos;
 import jakarta.annotation.Nullable;
 import school.pachecos.api.tasks.TaskEntity;
 import school.pachecos.api.users.UserEntity;
-import school.pachecos.commons.interfaces.BaseUpdateDTO;
+import school.pachecos.infra.commons.interfaces.BaseUpdateDTO;
 
 public record AssignmentUpdateEntityDTO(
 		Long id,
@@ -18,7 +18,7 @@ public record AssignmentUpdateEntityDTO(
 	}
 
 	@Override
-	public Long getId() {
+	public Long id() {
 		return id;
 	}
 }

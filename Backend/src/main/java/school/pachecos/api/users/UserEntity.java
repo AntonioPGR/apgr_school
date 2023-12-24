@@ -13,7 +13,7 @@ import school.pachecos.api.lessons.LessonEntity;
 import school.pachecos.api.tasks.TaskEntity;
 import school.pachecos.api.users.dtos.UserCreateDTO;
 import school.pachecos.api.users.dtos.UserUpdateDTO;
-import school.pachecos.commons.classes.BaseApiEntity;
+import school.pachecos.infra.commons.classes.BaseApiEntity;
 
 import java.time.LocalDate;
 import java.util.Collection;

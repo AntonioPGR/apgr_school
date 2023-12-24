@@ -1,4 +1,4 @@
-package school.pachecos.commons.dtos;
+package school.pachecos.infra.commons.dtos;
 
 import jakarta.validation.constraints.NotNull;
 

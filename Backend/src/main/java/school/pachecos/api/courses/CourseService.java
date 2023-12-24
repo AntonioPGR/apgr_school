@@ -1,17 +1,13 @@
 package school.pachecos.api.courses;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import school.pachecos.api.courses.dtos.CourseCreateDTO;
 import school.pachecos.api.courses.dtos.CourseReturnDTO;
 import school.pachecos.api.courses.dtos.CourseUpdateDTO;
-import school.pachecos.commons.classes.BaseApiService;
+import school.pachecos.infra.commons.classes.BaseApiService;
 
 @Service
 public class CourseService extends BaseApiService<CourseEntity, CourseCreateDTO, CourseUpdateDTO, CourseReturnDTO> {
-
-	@Autowired
-	CourseRepository course_repository;
 
 	@Override
 	public CourseReturnDTO convertToReturnDTO(CourseEntity entity) {

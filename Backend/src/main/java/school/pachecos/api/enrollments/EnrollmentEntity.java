@@ -3,14 +3,17 @@ package school.pachecos.api.enrollments;
 import jakarta.annotation.Nullable;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Past;
+import jakarta.validation.constraints.PastOrPresent;
 import lombok.*;
 import school.pachecos.api.courses.CourseEntity;
 import school.pachecos.api.enrollments.dtos.EnrollmentCreateEntityDTO;
 import school.pachecos.api.enrollments.dtos.EnrollmentUpdateEntityDTO;
 import school.pachecos.api.users.UserEntity;
-import school.pachecos.commons.classes.BaseApiEntity;
+import school.pachecos.infra.commons.classes.BaseApiEntity;
 
 import java.sql.Date;
+import java.time.LocalDate;
 
 @Entity(name = "EnrollmentEntity")
 @Table(name = "Course_Students")
@@ -29,15 +32,16 @@ public class EnrollmentEntity extends BaseApiEntity<EnrollmentUpdateEntityDTO> {
 	@JoinColumn(name = "student", nullable = false)
 	private UserEntity student;
 	@NotNull
-	private Date enrollment_date;
+	@PastOrPresent
+	private LocalDate enrollment_date;
 	@Nullable
-	private Date end_date;
+	@Past
+	private LocalDate end_date;
 
 	public EnrollmentEntity(EnrollmentCreateEntityDTO entity_dto){
 		this.course = entity_dto.course();
 		this.student = entity_dto.student();
 		this.enrollment_date = entity_dto.enrollment_date();
-		this.end_date = entity_dto.end_date();
 	}
 
 	public void update(EnrollmentUpdateEntityDTO edit_dto) {

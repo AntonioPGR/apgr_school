@@ -1,15 +1,13 @@
 package school.pachecos.api.assignments;
 
-import org.apache.catalina.User;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.scheduling.config.Task;
 import org.springframework.stereotype.Service;
 import school.pachecos.api.assignments.dtos.*;
 import school.pachecos.api.tasks.TaskEntity;
 import school.pachecos.api.tasks.TaskRepository;
 import school.pachecos.api.users.UserEntity;
 import school.pachecos.api.users.UserRepository;
-import school.pachecos.commons.classes.BaseApiService;
+import school.pachecos.infra.commons.classes.BaseApiService;
 
 @Service
 public class AssignmentService extends BaseApiService<AssignmentEntity, AssignmentCreateEntityDTO, AssignmentUpdateEntityDTO, AssignmentReturnDTO> {
@@ -33,7 +31,7 @@ public class AssignmentService extends BaseApiService<AssignmentEntity, Assignme
 	public AssignmentReturnDTO update(AssignmentUpdateIdDTO update_dto) {
 		TaskEntity task = update_dto.task_id() != null? getTask(update_dto.task_id()) : null;
 		UserEntity user = update_dto.student_id() != null? getStudent(update_dto.student_id()) : null;;
-		return this.update(update_dto.id(), new AssignmentUpdateEntityDTO(update_dto, task, user));
+		return this.update(new AssignmentUpdateEntityDTO(update_dto, task, user));
 	}
 
 	private TaskEntity getTask(Long id){

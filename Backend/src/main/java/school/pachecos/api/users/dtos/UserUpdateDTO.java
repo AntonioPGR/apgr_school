@@ -3,7 +3,7 @@ package school.pachecos.api.users.dtos;
 import jakarta.annotation.Nullable;
 import jakarta.validation.constraints.NotNull;
 import school.pachecos.api.users.UserEntity;
-import school.pachecos.commons.interfaces.BaseUpdateDTO;
+import school.pachecos.infra.commons.interfaces.BaseUpdateDTO;
 
 import java.time.LocalDate;
 
@@ -43,7 +43,7 @@ public record UserUpdateDTO (
 	}
 
 	@Override
-	public Long getId() {
+	public Long id() {
 		return null;
 	}
 }

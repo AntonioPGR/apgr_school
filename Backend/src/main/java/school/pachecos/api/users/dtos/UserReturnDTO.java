@@ -1,8 +1,9 @@
 package school.pachecos.api.users.dtos;
 
 import school.pachecos.api.users.UserEntity;
-
+import school.pachecos.infra.commons.interfaces.BaseReturnDTO;
 import java.time.LocalDate;
+
 
 public record UserReturnDTO(
 		Long id,
@@ -12,7 +13,7 @@ public record UserReturnDTO(
 		String cellphone,
 		String gender,
 		String photo_path
-) {
+) implements BaseReturnDTO {
 
 	public UserReturnDTO(UserEntity user_entity){
 		this(

@@ -9,7 +9,7 @@ import school.pachecos.api.courses.dtos.CourseUpdateDTO;
 import school.pachecos.api.courses.dtos.CourseCreateDTO;
 import school.pachecos.api.lessons.LessonEntity;
 import school.pachecos.api.users.UserEntity;
-import school.pachecos.commons.classes.BaseApiEntity;
+import school.pachecos.infra.commons.classes.BaseApiEntity;
 
 import java.util.List;
 

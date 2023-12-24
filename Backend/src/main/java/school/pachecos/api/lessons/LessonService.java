@@ -5,7 +5,7 @@ import org.springframework.stereotype.Service;
 import school.pachecos.api.lessons.dto.*;
 import school.pachecos.api.users.UserEntity;
 import school.pachecos.api.users.UserRepository;
-import school.pachecos.commons.classes.BaseApiService;
+import school.pachecos.infra.commons.classes.BaseApiService;
 
 import java.util.List;
 
@@ -29,7 +29,7 @@ public class LessonService extends BaseApiService<LessonEntity, LessonCreateEnti
 
 	public void update(LessonUpdateIdDTO lesson_info) {
 		UserEntity professor = lesson_info.professor_id() != null? getProfessor(lesson_info.professor_id()) : null;
-		this.update(lesson_info.id(), new LessonUpdateEntityDTO(lesson_info, professor));
+		this.update(new LessonUpdateEntityDTO(lesson_info, professor));
 	}
 
 	private UserEntity getProfessor(long id){

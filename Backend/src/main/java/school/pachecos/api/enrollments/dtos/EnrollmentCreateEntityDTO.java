@@ -2,20 +2,21 @@ package school.pachecos.api.enrollments.dtos;
 
 import jakarta.annotation.Nullable;
 import jakarta.validation.constraints.NotNull;
+import org.springframework.cglib.core.Local;
 import school.pachecos.api.courses.CourseEntity;
 import school.pachecos.api.users.UserEntity;
 
 import java.sql.Date;
+import java.time.LocalDate;
 
 public record EnrollmentCreateEntityDTO(
 		@NotNull CourseEntity course,
 		@NotNull UserEntity student,
-		@NotNull Date enrollment_date,
-		@Nullable Date end_date
+		@NotNull LocalDate enrollment_date
 ) {
 
-	public EnrollmentCreateEntityDTO(EnrollmentCreatIdDTO enrollment_id, CourseEntity course, UserEntity student){
-		this(course, student, enrollment_id.enrollment_date(), enrollment_id.end_date());
+	public EnrollmentCreateEntityDTO(CourseEntity course, UserEntity student){
+		this(course, student, LocalDate.now());
 	}
 
 }

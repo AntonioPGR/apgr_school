@@ -1,6 +1,7 @@
 package school.pachecos.api.lessons;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Future;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import lombok.*;
@@ -10,7 +11,7 @@ import school.pachecos.api.lessons.dto.LessonCreateEntityDTO;
 import school.pachecos.api.lessons.dto.LessonUpdateEntityDTO;
 import school.pachecos.api.tasks.TaskEntity;
 import school.pachecos.api.users.UserEntity;
-import school.pachecos.commons.classes.BaseApiEntity;
+import school.pachecos.infra.commons.classes.BaseApiEntity;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -29,6 +30,7 @@ public class LessonEntity extends BaseApiEntity<LessonUpdateEntityDTO> {
 	@Length(max = 100)
 	private String name;
 	@NotNull
+	@Future
 	private LocalDateTime datetime;
 	@NotNull
 	private int duration_in_minutes;

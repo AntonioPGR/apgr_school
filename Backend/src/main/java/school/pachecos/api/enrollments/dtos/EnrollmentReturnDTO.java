@@ -2,9 +2,11 @@ package school.pachecos.api.enrollments.dtos;
 
 import jakarta.annotation.Nullable;
 import jakarta.validation.constraints.NotNull;
+import lombok.Getter;
 import school.pachecos.api.courses.dtos.CourseReturnDTO;
 import school.pachecos.api.enrollments.EnrollmentEntity;
 import school.pachecos.api.users.dtos.UserReturnDTO;
+import school.pachecos.infra.commons.interfaces.BaseReturnDTO;
 
 import java.sql.Date;
 
@@ -15,7 +17,7 @@ public record EnrollmentReturnDTO(
 		@NotNull UserReturnDTO student,
 		@NotNull Date enrollment_date,
 		@Nullable Date end_date
-) {
+) implements BaseReturnDTO {
 
 	public EnrollmentReturnDTO(EnrollmentEntity entity){
 		this(

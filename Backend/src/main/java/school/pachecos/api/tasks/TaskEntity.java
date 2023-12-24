@@ -9,7 +9,7 @@ import school.pachecos.api.lessons.LessonEntity;
 import school.pachecos.api.tasks.dtos.TaskCreateEntityDTO;
 import school.pachecos.api.tasks.dtos.TaskUpdateEntityDTO;
 import school.pachecos.api.users.UserEntity;
-import school.pachecos.commons.classes.BaseApiEntity;
+import school.pachecos.infra.commons.classes.BaseApiEntity;
 
 import java.time.LocalDateTime;
 import java.util.List;

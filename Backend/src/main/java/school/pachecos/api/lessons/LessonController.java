@@ -5,7 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import school.pachecos.api.lessons.dto.*;
-import school.pachecos.commons.classes.BaseApiController;
+import school.pachecos.infra.commons.classes.BaseApiController;
 import java.util.List;
 
 
@@ -22,4 +22,8 @@ public class LessonController extends BaseApiController<LessonEntity, LessonCrea
 		return ResponseEntity.ok().body(search_result);
 	}
 
+	@Override
+	protected String getBaseUriPath() {
+		return "/lessons";
+	}
 }

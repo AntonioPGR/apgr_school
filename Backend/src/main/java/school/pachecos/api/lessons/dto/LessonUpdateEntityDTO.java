@@ -3,9 +3,8 @@ package school.pachecos.api.lessons.dto;
 import jakarta.annotation.Nullable;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
-import school.pachecos.api.lessons.LessonEntity;
 import school.pachecos.api.users.UserEntity;
-import school.pachecos.commons.interfaces.BaseUpdateDTO;
+import school.pachecos.infra.commons.interfaces.BaseUpdateDTO;
 
 import java.time.LocalDateTime;
 
@@ -21,7 +20,7 @@ public record LessonUpdateEntityDTO(
 	}
 
 	@Override
-	public Long getId() {
+	public Long id() {
 		return id;
 	}
 }

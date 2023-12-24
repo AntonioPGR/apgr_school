@@ -4,12 +4,13 @@ import jakarta.annotation.Nullable;
 import jakarta.validation.constraints.NotNull;
 
 import java.sql.Date;
+import java.time.LocalDate;
 
 public record EnrollmentUpdateIdDTO(
 		@NotNull Long id,
 		@Nullable Long course_id,
 		@Nullable Long student_id,
-		@Nullable Date enrollment_date,
-		@Nullable Date end_date
+		@Nullable LocalDate enrollment_date,
+		@Nullable LocalDate end_date
 ) {
 }

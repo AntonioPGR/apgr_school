@@ -1,12 +1,10 @@
 package school.pachecos.api.users;
 
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import school.pachecos.api.users.dtos.*;
-import school.pachecos.commons.classes.BaseApiService;
-import school.pachecos.commons.dtos.IdDTO;
+import school.pachecos.infra.commons.classes.BaseApiService;
 
 import java.util.Collection;
 import java.util.List;
@@ -18,7 +16,7 @@ public class UserService extends BaseApiService<UserEntity, UserCreateDTO, UserU
 	@Autowired
 	private UserRepository user_repository;
 
-	public List<UserReturnDTO> searchInUsers(UserSearchDTO search){
+	public List<UserReturnDTO> searchInUsers(@Valid UserSearchDTO search){
 		Collection<UserEntity> user_list = user_repository.searchUsers(search.name(), search.birth_date(), search.email(), search.cellphone());
 		return user_list.stream().map(UserReturnDTO::new).toList();
 	}

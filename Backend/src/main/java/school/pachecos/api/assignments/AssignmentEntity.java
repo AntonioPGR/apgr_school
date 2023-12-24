@@ -8,7 +8,7 @@ import school.pachecos.api.assignments.dtos.AssignmentCreateEntityDTO;
 import school.pachecos.api.assignments.dtos.AssignmentUpdateEntityDTO;
 import school.pachecos.api.tasks.TaskEntity;
 import school.pachecos.api.users.UserEntity;
-import school.pachecos.commons.classes.BaseApiEntity;
+import school.pachecos.infra.commons.classes.BaseApiEntity;
 
 @Entity(name = "StudentsTasksEntity")
 @Table(name = "Students_Tasks")

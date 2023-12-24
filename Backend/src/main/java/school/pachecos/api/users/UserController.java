@@ -3,16 +3,13 @@ package school.pachecos.api.users;
 import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
-import org.springframework.data.web.PageableDefault;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import school.pachecos.api.users.dtos.*;
-import school.pachecos.commons.classes.BaseApiController;
-import school.pachecos.commons.dtos.IdDTO;
+import school.pachecos.infra.commons.classes.BaseApiController;
+import school.pachecos.infra.commons.dtos.IdDTO;
+import school.pachecos.infra.uri.URIService;
 
-import javax.swing.text.html.parser.Entity;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.List;
@@ -24,12 +21,14 @@ public class UserController extends BaseApiController<UserEntity, UserCreateDTO,
 
 	@Autowired
 	UserService user_service;
+	@Autowired
+	URIService uri_service;
 
 	@PostMapping("/active")
 	@Transactional
-	public ResponseEntity activeUser(@RequestBody @Valid IdDTO user_info) throws URISyntaxException {
+	public ResponseEntity<URI> activeUser(@RequestBody @Valid IdDTO user_info) throws URISyntaxException {
 		user_service.activeUser(user_info.id());
-		URI user_uri = new URI("localhost:8000/users/"+user_info.id());
+		URI user_uri =  uri_service.createReturnURI("/users/"+user_info.id());
 		return ResponseEntity.created(user_uri).build();
 	}
 
@@ -46,4 +45,8 @@ public class UserController extends BaseApiController<UserEntity, UserCreateDTO,
 		return ResponseEntity.noContent().build();
 	}
 
+	@Override
+	protected String getBaseUriPath() {
+		return "/users";
+	}
 }

@@ -4,16 +4,17 @@ import jakarta.annotation.Nullable;
 import jakarta.validation.constraints.NotNull;
 import school.pachecos.api.courses.CourseEntity;
 import school.pachecos.api.users.UserEntity;
-import school.pachecos.commons.interfaces.BaseUpdateDTO;
+import school.pachecos.infra.commons.interfaces.BaseUpdateDTO;
 
 import java.sql.Date;
+import java.time.LocalDate;
 
 public record EnrollmentUpdateEntityDTO(
 		@NotNull Long id,
 		@Nullable CourseEntity course,
 		@Nullable UserEntity student,
-		@Nullable Date enrollment_date,
-		@Nullable Date end_date
+		@Nullable LocalDate enrollment_date,
+		@Nullable LocalDate end_date
 ) implements BaseUpdateDTO {
 
 	public EnrollmentUpdateEntityDTO(EnrollmentUpdateIdDTO enrollment_id, CourseEntity course, UserEntity student){
@@ -21,7 +22,7 @@ public record EnrollmentUpdateEntityDTO(
 	}
 
 	@Override
-	public Long getId() {
+	public Long id() {
 		return id;
 	}
 }

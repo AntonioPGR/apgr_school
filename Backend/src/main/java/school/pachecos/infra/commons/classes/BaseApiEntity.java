@@ -1,4 +1,4 @@
-package school.pachecos.commons.classes;
+package school.pachecos.infra.commons.classes;
 
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
