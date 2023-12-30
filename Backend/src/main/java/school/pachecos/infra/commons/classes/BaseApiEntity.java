@@ -6,13 +6,14 @@ import jakarta.persistence.Id;
 import lombok.*;
 import school.pachecos.api.users.dtos.UserUpdateDTO;
 
+import java.util.UUID;
 
 @EqualsAndHashCode(of = "id")
-public abstract class BaseApiEntity<UpdateDTO>{
+public abstract class BaseApiEntity<UpdateDTO> {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long id;
+	private UUID id;
 
 	abstract public void update(UpdateDTO update_dto);
 

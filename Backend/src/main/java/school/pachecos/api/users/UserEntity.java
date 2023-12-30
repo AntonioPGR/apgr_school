@@ -18,6 +18,7 @@ import school.pachecos.infra.commons.classes.BaseApiEntity;
 import java.time.LocalDate;
 import java.util.Collection;
 import java.util.List;
+import java.util.UUID;
 
 @Table(name = "Users")
 @Entity(name = "UserEntity")
@@ -28,7 +29,7 @@ import java.util.List;
 public class UserEntity extends BaseApiEntity<UserUpdateDTO> implements UserDetails {
 
 	@Id @GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long id;
+	private UUID id;
 	@NotBlank
 	@Length(max = 100)
 	private String name;

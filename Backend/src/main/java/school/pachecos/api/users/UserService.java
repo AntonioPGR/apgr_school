@@ -8,7 +8,7 @@ import school.pachecos.infra.commons.classes.BaseApiService;
 
 import java.util.Collection;
 import java.util.List;
-
+import java.util.UUID;
 
 @Service
 public class UserService extends BaseApiService<UserEntity, UserCreateDTO, UserUpdateDTO, UserReturnDTO> {
@@ -16,17 +16,18 @@ public class UserService extends BaseApiService<UserEntity, UserCreateDTO, UserU
 	@Autowired
 	private UserRepository user_repository;
 
-	public List<UserReturnDTO> searchInUsers(@Valid UserSearchDTO search){
-		Collection<UserEntity> user_list = user_repository.searchUsers(search.name(), search.birth_date(), search.email(), search.cellphone());
+	public List<UserReturnDTO> searchInUsers(@Valid UserSearchDTO search) {
+		Collection<UserEntity> user_list = user_repository.searchUsers(search.name(), search.birth_date(), search.email(),
+				search.cellphone());
 		return user_list.stream().map(UserReturnDTO::new).toList();
 	}
 
-	public void desactiveUser(Long id){
+	public void deactive(UUID id) {
 		UserEntity user_entity = user_repository.getReferenceById(id);
 		user_entity.desactivete();
 	}
 
-	public void activeUser(Long id){
+	public void activate(UUID id) {
 		UserEntity user_entity = user_repository.getReferenceById(id);
 		user_entity.activete();
 	}

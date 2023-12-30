@@ -7,20 +7,22 @@ import school.pachecos.api.users.UserEntity;
 import school.pachecos.infra.commons.interfaces.BaseUpdateDTO;
 
 import java.time.LocalDateTime;
+import java.util.UUID;
 
 public record LessonUpdateEntityDTO(
-		@NotNull long id,
+		@NotNull UUID id,
 		@Nullable @NotBlank String name,
 		@Nullable LocalDateTime datetime,
 		@Nullable UserEntity professor,
 		@Nullable int duration_in_minutes) implements BaseUpdateDTO {
 
-	public LessonUpdateEntityDTO(LessonUpdateIdDTO lesson_dto, UserEntity professor){
+	public LessonUpdateEntityDTO(LessonUpdateIdDTO lesson_dto, UserEntity professor) {
 		this(lesson_dto.id(), lesson_dto.name(), lesson_dto.datetime(), professor, lesson_dto.duration_in_minutes());
 	}
 
 	@Override
-	public Long id() {
+	public UUID id() {
 		return id;
 	}
+
 }

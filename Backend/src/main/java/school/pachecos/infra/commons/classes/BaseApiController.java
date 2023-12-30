@@ -15,56 +15,44 @@ import school.pachecos.infra.commons.interfaces.BaseUpdateDTO;
 import school.pachecos.infra.uri.URIService;
 
 import java.net.URI;
+import java.util.UUID;
 
-
-@RestController
-public abstract class BaseApiController<
-		Entity extends BaseApiEntity,
-		CreateDTO,
-		UpdateDTO extends BaseUpdateDTO,
-		ReturnDTO extends BaseReturnDTO,
-		Service extends BaseApiService<Entity, CreateDTO, UpdateDTO, ReturnDTO>
-	> {
+public abstract class BaseApiController<Entity extends BaseApiEntity, CreateDTO, UpdateDTO extends BaseUpdateDTO, ReturnDTO extends BaseReturnDTO, Service extends BaseApiService<Entity, CreateDTO, UpdateDTO, ReturnDTO>> {
 
 	@Autowired
 	Service service;
 	@Autowired
 	URIService uri_service;
 
-	@GetMapping
-	public ResponseEntity<Page<ReturnDTO>> listAll(@PageableDefault(size = 20) Pageable pageable){
+	public ResponseEntity<Page<ReturnDTO>> listAll(Pageable pageable) {
 		Page<ReturnDTO> page = service.listPerPage(pageable);
 		return ResponseEntity.ok().body(page);
 	}
 
-	@GetMapping("/{id}")
-	public ResponseEntity<ReturnDTO> getUnique(@PathVariable("id") long id){
+	public ResponseEntity<ReturnDTO> getUnique(UUID id) {
 		ReturnDTO dto = (ReturnDTO) service.getById(id);
 		return ResponseEntity.ok().body(dto);
 	}
 
 	// POST
-	@PostMapping
 	@Transactional
-	public ResponseEntity<URI> create(@RequestBody @Valid CreateDTO dto) {
-		ReturnDTO entity = service.create(dto);
-		URI entity_uri = uri_service.createReturnURI(getBaseUriPath()+entity.id());
-		return ResponseEntity.created(entity_uri).build();
+	public ResponseEntity<ReturnDTO> create(CreateDTO dto) {
+		ReturnDTO return_dto = service.create(dto);
+		URI entity_uri = uri_service.createReturnURI(getBaseUriPath() + return_dto.id());
+		return ResponseEntity.created(entity_uri).body(return_dto);
 	}
 
 	// PUT
-	@PutMapping
 	@Transactional
-	public ResponseEntity<URI> edit(@RequestBody @Valid UpdateDTO dto){
+	public ResponseEntity<URI> edit(UpdateDTO dto) {
 		ReturnDTO entity = service.update(dto);
-		URI entity_uri = uri_service.createReturnURI(getBaseUriPath()+entity.id());
+		URI entity_uri = uri_service.createReturnURI(getBaseUriPath() + entity.id());
 		return ResponseEntity.created(entity_uri).build();
 	}
 
-	@DeleteMapping()
 	@Transactional
-	public ResponseEntity delete(@RequestBody @Valid IdDTO dto){
-		service.delete(dto.id());
+	public ResponseEntity delete(UUID id) {
+		service.delete(id);
 		return ResponseEntity.noContent().build();
 	}
 

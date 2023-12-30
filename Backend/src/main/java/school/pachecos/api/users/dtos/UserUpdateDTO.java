@@ -6,10 +6,11 @@ import school.pachecos.api.users.UserEntity;
 import school.pachecos.infra.commons.interfaces.BaseUpdateDTO;
 
 import java.time.LocalDate;
+import java.util.UUID;
 
 public record UserUpdateDTO (
 		@NotNull
-		Long id,
+		UUID id,
 		@Nullable
 		String name,
 		@Nullable
@@ -27,23 +28,4 @@ public record UserUpdateDTO (
 		@Nullable
 		String password
 ) implements BaseUpdateDTO {
-
-	public UserUpdateDTO(UserEntity user_entity){
-		this(
-				user_entity.getId(),
-				user_entity.getName(),
-				user_entity.getBirth_date(),
-				user_entity.getEmail(),
-				user_entity.getCellphone(),
-				user_entity.getGender(),
-				user_entity.getPhoto_path(),
-				user_entity.getPermissions(),
-				user_entity.getPassword()
-		);
-	}
-
-	@Override
-	public Long id() {
-		return null;
-	}
 }

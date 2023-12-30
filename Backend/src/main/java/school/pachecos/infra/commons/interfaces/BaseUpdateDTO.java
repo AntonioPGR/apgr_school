@@ -1,7 +1,9 @@
 package school.pachecos.infra.commons.interfaces;
 
-public abstract interface BaseUpdateDTO {
+import java.util.UUID;
 
-	abstract Long id();
+public interface BaseUpdateDTO {
+
+	UUID id();
 
 }

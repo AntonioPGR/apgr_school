@@ -5,11 +5,12 @@ import school.pachecos.api.courses.dtos.CourseReturnDTO;
 import school.pachecos.api.courses.dtos.CourseCreateDTO;
 import school.pachecos.api.courses.dtos.CourseUpdateDTO;
 import school.pachecos.infra.commons.classes.BaseApiController;
+import school.pachecos.infra.commons.classes.StaticApiController;
 
 
 @RestController
 @RequestMapping("/courses")
-public class CourseController extends BaseApiController<CourseEntity, CourseCreateDTO, CourseUpdateDTO, CourseReturnDTO, CourseService> {
+public class CourseController extends StaticApiController<CourseEntity, CourseCreateDTO, CourseUpdateDTO, CourseReturnDTO, CourseService> {
 
 	@Override
 	protected String getBaseUriPath() {

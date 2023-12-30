@@ -6,22 +6,20 @@ import school.pachecos.api.lessons.LessonEntity;
 import school.pachecos.infra.commons.interfaces.BaseUpdateDTO;
 
 import java.time.LocalDateTime;
-
+import java.util.UUID;
 
 public record TaskUpdateEntityDTO(
-		@NotNull Long id,
+		@NotNull UUID id,
 		@Nullable String title,
 		@Nullable LocalDateTime due_date,
 		@Nullable String description,
-		@Nullable LessonEntity lesson
-) implements BaseUpdateDTO {
+		@Nullable LessonEntity lesson) implements BaseUpdateDTO {
 	public TaskUpdateEntityDTO(TaskUpdateIdDTO edited_task, @Nullable LessonEntity lesson_entity) {
-		this( edited_task.id(), edited_task.title(), edited_task.dueDate(), edited_task.description(), lesson_entity);
+		this(edited_task.id(), edited_task.title(), edited_task.dueDate(), edited_task.description(), lesson_entity);
 	}
 
 	@Override
-	public Long id() {
+	public UUID id() {
 		return id;
 	}
 }
-

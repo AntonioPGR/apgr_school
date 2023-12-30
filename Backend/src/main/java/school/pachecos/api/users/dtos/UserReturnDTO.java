@@ -3,10 +3,11 @@ package school.pachecos.api.users.dtos;
 import school.pachecos.api.users.UserEntity;
 import school.pachecos.infra.commons.interfaces.BaseReturnDTO;
 import java.time.LocalDate;
+import java.util.UUID;
 
 
 public record UserReturnDTO(
-		Long id,
+		UUID id,
 		String name,
 		LocalDate birth_date,
 		String email,

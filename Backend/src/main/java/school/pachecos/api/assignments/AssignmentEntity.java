@@ -10,6 +10,8 @@ import school.pachecos.api.tasks.TaskEntity;
 import school.pachecos.api.users.UserEntity;
 import school.pachecos.infra.commons.classes.BaseApiEntity;
 
+import java.util.UUID;
+
 @Entity(name = "StudentsTasksEntity")
 @Table(name = "Students_Tasks")
 @Getter
@@ -20,7 +22,7 @@ public class AssignmentEntity extends BaseApiEntity<AssignmentUpdateEntityDTO> {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long id;
+	private UUID id;
 	@NotNull
 	private int is_done = 0;
 	@Nullable

@@ -13,6 +13,7 @@ import school.pachecos.infra.commons.classes.BaseApiEntity;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.UUID;
 
 @Entity(name = "TaskEntity")
 @Table(name = "Tasks")
@@ -20,10 +21,10 @@ import java.util.List;
 @Setter(AccessLevel.PRIVATE)
 @NoArgsConstructor
 @AllArgsConstructor
-public class TaskEntity extends BaseApiEntity<TaskUpdateEntityDTO>{
+public class TaskEntity extends BaseApiEntity<TaskUpdateEntityDTO> {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long id;
+	private UUID id;
 	@NotBlank
 	@NotNull
 	private String title;
@@ -36,11 +37,7 @@ public class TaskEntity extends BaseApiEntity<TaskUpdateEntityDTO>{
 	@JoinColumn(name = "lesson", nullable = false)
 	private LessonEntity lesson;
 	@ManyToMany
-	@JoinTable(
-		name = "Users_Tasks",
-		joinColumns = @JoinColumn(name="task"),
-		inverseJoinColumns = @JoinColumn(name = "student")
-	)
+	@JoinTable(name = "Users_Tasks", joinColumns = @JoinColumn(name = "task"), inverseJoinColumns = @JoinColumn(name = "student"))
 	private List<UserEntity> students;
 
 	public TaskEntity(TaskCreateEntityDTO taskDTO) {
@@ -49,7 +46,6 @@ public class TaskEntity extends BaseApiEntity<TaskUpdateEntityDTO>{
 		this.description = taskDTO.description();
 		this.lesson = taskDTO.lesson();
 	}
-
 
 	public void update(TaskUpdateEntityDTO edited_task) {
 		this.setTitle(edited_task.title() != null ? edited_task.title() : this.getTitle());

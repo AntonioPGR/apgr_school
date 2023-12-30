@@ -9,7 +9,7 @@ import java.net.URISyntaxException;
 @Service
 public class URIService {
 
-	@Value("${base_path}")
+	@Value("${api.routes.base_path}")
 	String base_path;
 
 	public URI createReturnURI(String unique_path) {

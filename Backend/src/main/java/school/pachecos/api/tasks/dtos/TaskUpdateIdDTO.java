@@ -4,13 +4,12 @@ import jakarta.annotation.Nullable;
 import jakarta.validation.constraints.NotNull;
 
 import java.time.LocalDateTime;
-
+import java.util.UUID;
 
 public record TaskUpdateIdDTO(
-		@NotNull Long id,
+		@NotNull UUID id,
 		@Nullable String title,
 		@Nullable LocalDateTime dueDate,
 		@Nullable String description,
-		@Nullable Long lesson_id
-)
-{}
+		@Nullable UUID lesson_id) {
+}

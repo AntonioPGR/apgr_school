@@ -15,9 +15,11 @@ import school.pachecos.infra.commons.classes.BaseApiEntity;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.UUID;
+import java.util.stream.Collectors;
 
-@Entity(name="LessonEntity")
-@Table(name="lessons")
+@Entity(name = "LessonEntity")
+@Table(name = "lessons")
 @Getter
 @Setter(AccessLevel.PRIVATE)
 @NoArgsConstructor
@@ -25,7 +27,7 @@ import java.util.List;
 public class LessonEntity extends BaseApiEntity<LessonUpdateEntityDTO> {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private long id;
+	private UUID id;
 	@NotBlank
 	@Length(max = 100)
 	private String name;
@@ -45,15 +47,21 @@ public class LessonEntity extends BaseApiEntity<LessonUpdateEntityDTO> {
 	@ManyToMany(mappedBy = "lessons")
 	private List<CourseEntity> courses;
 
-	public LessonEntity(LessonCreateEntityDTO user_info){
+	public LessonEntity(LessonCreateEntityDTO user_info) {
 		this.setName(user_info.name());
 		this.setDatetime(user_info.datetime());
 		this.setProfessor(user_info.professor());
 	}
 
 	public void update(LessonUpdateEntityDTO lessonUpdateDto) {
-		setName(lessonUpdateDto.name() != null? lessonUpdateDto.name() : name);
-		setDatetime(lessonUpdateDto.datetime() != null? lessonUpdateDto.datetime() : datetime);
-		setProfessor(lessonUpdateDto.professor() != null? lessonUpdateDto.professor() : professor);
+		setName(lessonUpdateDto.name() != null ? lessonUpdateDto.name() : name);
+		setDatetime(lessonUpdateDto.datetime() != null ? lessonUpdateDto.datetime() : datetime);
+		setProfessor(lessonUpdateDto.professor() != null ? lessonUpdateDto.professor() : professor);
+	}
+
+	public List<UserEntity> getStudents() {
+		return courses.stream()
+				.flatMap(course -> course.getStudents().stream())
+				.collect(Collectors.toList());
 	}
 }

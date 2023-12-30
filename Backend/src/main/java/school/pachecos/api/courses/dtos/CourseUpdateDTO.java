@@ -4,13 +4,14 @@ import jakarta.annotation.Nullable;
 import jakarta.validation.constraints.NotNull;
 import school.pachecos.infra.commons.interfaces.BaseUpdateDTO;
 
+import java.util.UUID;
+
 public record CourseUpdateDTO(
-		@NotNull Long id,
+		@NotNull UUID id,
 		@Nullable String name,
-		@Nullable String description
-) implements BaseUpdateDTO {
+		@Nullable String description) implements BaseUpdateDTO {
 	@Override
-	public Long id() {
+	public UUID id() {
 		return id;
 	}
 }

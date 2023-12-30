@@ -6,12 +6,14 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import school.pachecos.api.lessons.dto.*;
 import school.pachecos.infra.commons.classes.BaseApiController;
+import school.pachecos.infra.commons.classes.StaticApiController;
+
 import java.util.List;
 
 
 @RestController
 @RequestMapping("/lessons")
-public class LessonController extends BaseApiController<LessonEntity, LessonCreateEntityDTO, LessonUpdateEntityDTO, LessonReturnDTO, LessonService> {
+public class LessonController extends StaticApiController<LessonEntity, LessonCreateEntityDTO, LessonUpdateEntityDTO, LessonReturnDTO, LessonService> {
 
 	@Autowired
 	LessonService lesson_service;
