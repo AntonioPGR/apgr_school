@@ -8,10 +8,9 @@ import school.pachecos.api.users.dtos.UserReturnDTO;
 import school.pachecos.infra.commons.interfaces.BaseReturnDTO;
 
 import java.time.LocalDate;
-import java.util.UUID;
 
 public record EnrollmentReturnDTO(
-		@NotNull UUID id,
+		@NotNull Long id,
 		@NotNull CourseReturnDTO course,
 		@NotNull UserReturnDTO student,
 		@NotNull LocalDate enrollment_date,

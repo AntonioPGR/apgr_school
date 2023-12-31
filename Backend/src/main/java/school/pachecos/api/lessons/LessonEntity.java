@@ -15,7 +15,7 @@ import school.pachecos.infra.commons.classes.BaseApiEntity;
 
 import java.time.LocalDateTime;
 import java.util.List;
-import java.util.UUID;
+
 import java.util.stream.Collectors;
 
 @Entity(name = "LessonEntity")
@@ -27,7 +27,7 @@ import java.util.stream.Collectors;
 public class LessonEntity extends BaseApiEntity<LessonUpdateEntityDTO> {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private UUID id;
+	private Long id;
 	@NotBlank
 	@Length(max = 100)
 	private String name;

@@ -13,7 +13,6 @@ import school.pachecos.infra.commons.classes.BaseApiEntity;
 
 import java.time.LocalDateTime;
 import java.util.List;
-import java.util.UUID;
 
 @Entity(name = "TaskEntity")
 @Table(name = "Tasks")
@@ -24,7 +23,7 @@ import java.util.UUID;
 public class TaskEntity extends BaseApiEntity<TaskUpdateEntityDTO> {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private UUID id;
+	private Long id;
 	@NotBlank
 	@NotNull
 	private String title;

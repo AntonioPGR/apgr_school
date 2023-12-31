@@ -8,7 +8,6 @@ import school.pachecos.infra.commons.classes.BaseApiService;
 
 import java.util.Collection;
 import java.util.List;
-import java.util.UUID;
 
 @Service
 public class UserService extends BaseApiService<UserEntity, UserCreateDTO, UserUpdateDTO, UserReturnDTO> {
@@ -22,12 +21,12 @@ public class UserService extends BaseApiService<UserEntity, UserCreateDTO, UserU
 		return user_list.stream().map(UserReturnDTO::new).toList();
 	}
 
-	public void deactive(UUID id) {
+	public void deactive(Long id) {
 		UserEntity user_entity = user_repository.getReferenceById(id);
 		user_entity.desactivete();
 	}
 
-	public void activate(UUID id) {
+	public void activate(Long id) {
 		UserEntity user_entity = user_repository.getReferenceById(id);
 		user_entity.activete();
 	}

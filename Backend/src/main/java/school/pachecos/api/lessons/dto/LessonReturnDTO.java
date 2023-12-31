@@ -5,10 +5,9 @@ import school.pachecos.api.users.dtos.UserReturnDTO;
 import school.pachecos.infra.commons.interfaces.BaseReturnDTO;
 
 import java.time.LocalDateTime;
-import java.util.UUID;
 
-public record LessonReturnDTO(UUID id, String name, LocalDateTime datetime, UserReturnDTO professor,
-                              int duration_in_minutes) implements BaseReturnDTO {
+public record LessonReturnDTO(Long id, String name, LocalDateTime datetime, UserReturnDTO professor,
+		int duration_in_minutes) implements BaseReturnDTO {
 
 	public LessonReturnDTO(LessonEntity entity) {
 		this(entity.getId(), entity.getName(), entity.getDatetime(), new UserReturnDTO(entity.getProfessor()),

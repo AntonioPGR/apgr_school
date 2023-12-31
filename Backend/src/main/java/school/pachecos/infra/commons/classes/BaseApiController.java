@@ -1,23 +1,16 @@
 package school.pachecos.infra.commons.classes;
 
 import jakarta.transaction.Transactional;
-import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-import org.springframework.data.web.PageableDefault;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
-import school.pachecos.api.assignments.dtos.AssignmentReturnDTO;
-import school.pachecos.infra.commons.dtos.IdDTO;
 import school.pachecos.infra.commons.interfaces.BaseReturnDTO;
-import school.pachecos.infra.commons.interfaces.BaseUpdateDTO;
 import school.pachecos.infra.uri.URIService;
 
 import java.net.URI;
-import java.util.UUID;
 
-public abstract class BaseApiController<Entity extends BaseApiEntity, CreateDTO, UpdateDTO extends BaseUpdateDTO, ReturnDTO extends BaseReturnDTO, Service extends BaseApiService<Entity, CreateDTO, UpdateDTO, ReturnDTO>> {
+public abstract class BaseApiController<Entity extends BaseApiEntity, CreateDTO, UpdateDTO, ReturnDTO extends BaseReturnDTO, Service extends BaseApiService<Entity, CreateDTO, UpdateDTO, ReturnDTO>> {
 
 	@Autowired
 	Service service;
@@ -29,7 +22,7 @@ public abstract class BaseApiController<Entity extends BaseApiEntity, CreateDTO,
 		return ResponseEntity.ok().body(page);
 	}
 
-	public ResponseEntity<ReturnDTO> getUnique(UUID id) {
+	public ResponseEntity<ReturnDTO> getUnique(Long id) {
 		ReturnDTO dto = (ReturnDTO) service.getById(id);
 		return ResponseEntity.ok().body(dto);
 	}
@@ -44,14 +37,14 @@ public abstract class BaseApiController<Entity extends BaseApiEntity, CreateDTO,
 
 	// PUT
 	@Transactional
-	public ResponseEntity<URI> edit(UpdateDTO dto) {
-		ReturnDTO entity = service.update(dto);
-		URI entity_uri = uri_service.createReturnURI(getBaseUriPath() + entity.id());
-		return ResponseEntity.created(entity_uri).build();
+	public ResponseEntity<ReturnDTO> edit(Long id, UpdateDTO dto) {
+		ReturnDTO entity = service.update(id, dto);
+		URI entity_uri = uri_service.createReturnURI(getBaseUriPath() + id);
+		return ResponseEntity.created(entity_uri).body(entity);
 	}
 
 	@Transactional
-	public ResponseEntity delete(UUID id) {
+	public ResponseEntity delete(Long id) {
 		service.delete(id);
 		return ResponseEntity.noContent().build();
 	}

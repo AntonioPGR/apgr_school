@@ -9,7 +9,7 @@ import school.pachecos.infra.commons.interfaces.BaseReturnDTO;
 import java.util.UUID;
 
 public record CourseReturnDTO(
-		@NotNull UUID id,
+		@NotNull Long id,
 		@NotNull @NotBlank String name,
 		@Nullable String description) implements BaseReturnDTO {
 

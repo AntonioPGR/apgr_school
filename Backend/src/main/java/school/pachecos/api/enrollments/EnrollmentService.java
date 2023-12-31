@@ -29,7 +29,7 @@ public class EnrollmentService extends BaseApiService<EnrollmentEntity, Enrollme
 	public EnrollmentReturnDTO update (EnrollmentUpdateIdDTO edit_id_dto) {
 		CourseEntity course = edit_id_dto.course_id() != null? course_repository.getReferenceById(edit_id_dto.course_id()) : null;
 		UserEntity student = edit_id_dto.student_id() != null? user_repository.getReferenceById(edit_id_dto.student_id()) : null;
-		return this.update(new EnrollmentUpdateEntityDTO(edit_id_dto, course, student));
+		return super.update(edit_id_dto.course_id(), new EnrollmentUpdateEntityDTO(edit_id_dto, course, student));
 	}
 
 	@Override

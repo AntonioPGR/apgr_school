@@ -14,7 +14,6 @@ import school.pachecos.infra.commons.classes.BaseApiEntity;
 
 import java.sql.Date;
 import java.time.LocalDate;
-import java.util.UUID;
 
 @Entity(name = "EnrollmentEntity")
 @Table(name = "Course_Students")
@@ -25,7 +24,7 @@ import java.util.UUID;
 public class EnrollmentEntity extends BaseApiEntity<EnrollmentUpdateEntityDTO> {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private UUID id;
+	private Long id;
 	@ManyToOne
 	@JoinColumn(name = "course", nullable = false)
 	private CourseEntity course;

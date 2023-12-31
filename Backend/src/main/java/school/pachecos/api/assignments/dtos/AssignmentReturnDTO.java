@@ -7,10 +7,8 @@ import school.pachecos.api.tasks.dtos.TaskReturnDTO;
 import school.pachecos.api.users.dtos.UserReturnDTO;
 import school.pachecos.infra.commons.interfaces.BaseReturnDTO;
 
-import java.util.UUID;
-
 public record AssignmentReturnDTO(
-		@NotNull UUID id,
+		@NotNull Long id,
 		@NotNull int is_done,
 		@Nullable String response_location,
 		@NotNull TaskReturnDTO task,

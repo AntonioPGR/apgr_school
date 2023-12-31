@@ -7,10 +7,9 @@ import school.pachecos.api.tasks.TaskEntity;
 import school.pachecos.infra.commons.interfaces.BaseReturnDTO;
 
 import java.time.LocalDateTime;
-import java.util.UUID;
 
 public record TaskReturnDTO(
-		@NotNull UUID id,
+		@NotNull Long id,
 		@NotNull String title,
 		@NotNull LocalDateTime dueDate,
 		@Nullable String description,

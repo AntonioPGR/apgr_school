@@ -8,8 +8,6 @@ import school.pachecos.api.lessons.LessonRepository;
 import school.pachecos.api.tasks.dtos.*;
 import school.pachecos.infra.commons.classes.BaseApiService;
 
-import java.util.UUID;
-
 @Service
 public class TaskService extends BaseApiService<TaskEntity, TaskCreateEntityDTO, TaskUpdateEntityDTO, TaskReturnDTO> {
 
@@ -25,10 +23,10 @@ public class TaskService extends BaseApiService<TaskEntity, TaskCreateEntityDTO,
 
 	public TaskReturnDTO update(@Valid TaskUpdateIdDTO update_dto) {
 		LessonEntity lesson_entity = update_dto.lesson_id() != null ? getLesson(update_dto.lesson_id()) : null;
-		return this.update(new TaskUpdateEntityDTO(update_dto, lesson_entity));
+		return this.update(update_dto.id(), new TaskUpdateEntityDTO(update_dto, lesson_entity));
 	}
 
-	public LessonEntity getLesson(UUID id) {
+	public LessonEntity getLesson(Long id) {
 		return lesson_repository.getReferenceById(id);
 	}
 

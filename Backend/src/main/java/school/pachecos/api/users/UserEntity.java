@@ -28,8 +28,9 @@ import java.util.UUID;
 @AllArgsConstructor
 public class UserEntity extends BaseApiEntity<UserUpdateDTO> implements UserDetails {
 
-	@Id @GeneratedValue(strategy = GenerationType.IDENTITY)
-	private UUID id;
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Long id;
 	@NotBlank
 	@Length(max = 100)
 	private String name;
@@ -53,6 +54,7 @@ public class UserEntity extends BaseApiEntity<UserUpdateDTO> implements UserDeta
 	private String photo_path;
 	@NotNull
 	private boolean active;
+	@NotNull
 	private String permissions;
 
 	@OneToMany(mappedBy = "professor", cascade = CascadeType.ALL)
@@ -61,20 +63,22 @@ public class UserEntity extends BaseApiEntity<UserUpdateDTO> implements UserDeta
 	@ManyToMany(mappedBy = "students")
 	private List<TaskEntity> tasks;
 
-
 	// CONSTRUCTORS
-	public UserEntity(String name, LocalDate birth_date, String email, String cellphone, String password, String gender, @Nullable String photo_path) {
-		this.name = name;
-		this.birth_date = birth_date;
-		this.email = email;
-		this.cellphone = cellphone;
-		this.password = password;
-		this.gender = gender;
-		this.photo_path = photo_path;
-		this.active = true;
+	public UserEntity(String name, LocalDate birth_date, String email, String cellphone, String password, String gender,
+			@Nullable String photo_path) {
+		setName(name);
+		setBirth_date(birth_date);
+		setEmail(email);
+		setCellphone(cellphone);
+		setPassword(password);
+		setGender(gender);
+		setPhoto_path(photo_path);
+		activete();
+		setPermissions("ROLE_USER");
 	}
+
 	public UserEntity(UserCreateDTO user_info) {
-		this.setName(user_info.name());
+		setName(user_info.name());
 		setBirth_date(user_info.birth_date());
 		setEmail(user_info.email());
 		setCellphone(user_info.cellphone());
@@ -82,6 +86,7 @@ public class UserEntity extends BaseApiEntity<UserUpdateDTO> implements UserDeta
 		setGender(user_info.gender());
 		setPhoto_path(user_info.photo_path());
 		activete();
+		setPermissions("ROLE_USER");
 	}
 
 	// METHODS
@@ -95,10 +100,11 @@ public class UserEntity extends BaseApiEntity<UserUpdateDTO> implements UserDeta
 		photo_path = user_info.photo_path() != null ? user_info.photo_path() : photo_path;
 	}
 
-	public void desactivete(){
+	public void desactivete() {
 		active = false;
 	}
-	public void activete(){
+
+	public void activete() {
 		active = true;
 	}
 
@@ -107,26 +113,32 @@ public class UserEntity extends BaseApiEntity<UserUpdateDTO> implements UserDeta
 	public Collection<? extends GrantedAuthority> getAuthorities() {
 		return List.of(new SimpleGrantedAuthority("ROLE_USER"));
 	}
+
 	@Override
 	public String getPassword() {
 		return this.password;
 	}
+
 	@Override
 	public String getUsername() {
 		return email;
 	}
+
 	@Override
 	public boolean isAccountNonExpired() {
 		return true;
 	}
+
 	@Override
 	public boolean isAccountNonLocked() {
 		return true;
 	}
+
 	@Override
 	public boolean isCredentialsNonExpired() {
 		return true;
 	}
+
 	@Override
 	public boolean isEnabled() {
 		return true;

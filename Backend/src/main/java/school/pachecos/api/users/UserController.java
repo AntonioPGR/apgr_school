@@ -10,7 +10,6 @@ import school.pachecos.infra.commons.classes.StaticApiController;
 import school.pachecos.infra.uri.URIService;
 import java.net.URI;
 import java.util.List;
-import java.util.UUID;
 
 @RestController
 @RequestMapping("/users")
@@ -30,7 +29,7 @@ public class UserController
 
 	@PostMapping("/activate/{id}")
 	@Transactional
-	public ResponseEntity<URI> activateUser(@PathVariable("id") UUID id) {
+	public ResponseEntity<URI> activateUser(@PathVariable("id") Long id) {
 		user_service.activate(id);
 		URI user_uri = uri_service.createReturnURI("/users/" + id);
 		return ResponseEntity.created(user_uri).build();
@@ -38,7 +37,7 @@ public class UserController
 
 	@DeleteMapping("/deactivate/{id}")
 	@Transactional
-	public ResponseEntity deactivateUser(@PathVariable("id") UUID id) {
+	public ResponseEntity deactivateUser(@PathVariable("id") Long id) {
 		user_service.deactive(id);
 		return ResponseEntity.noContent().build();
 	}

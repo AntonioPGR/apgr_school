@@ -5,6 +5,7 @@ import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import lombok.*;
+import org.hibernate.annotations.GenericGenerator;
 import school.pachecos.api.courses.dtos.CourseUpdateDTO;
 import school.pachecos.api.courses.dtos.CourseCreateDTO;
 import school.pachecos.api.lessons.LessonEntity;
@@ -24,7 +25,7 @@ public class CourseEntity extends BaseApiEntity<CourseUpdateDTO> {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private UUID id;
+	private Long id;
 	@NotNull
 	@NotBlank
 	private String name;
@@ -47,4 +48,5 @@ public class CourseEntity extends BaseApiEntity<CourseUpdateDTO> {
 		this.setName(edit_info.name() != null ? edit_info.name() : name);
 		this.setDescription(edit_info.description() != null ? edit_info.description() : description);
 	}
+
 }
