@@ -8,5 +8,6 @@ public record TaskCreateIdDTO(
 		@NotNull String title,
 		@NotNull LocalDateTime due_date,
 		@Nullable String description,
-		@NotNull Long lesson_id) {
+		@NotNull Long lesson_id
+) {
 }

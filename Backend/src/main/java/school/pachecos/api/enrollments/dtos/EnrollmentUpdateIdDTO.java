@@ -7,7 +7,6 @@ import java.sql.Date;
 import java.time.LocalDate;
 
 public record EnrollmentUpdateIdDTO(
-		@NotNull Long id,
 		@Nullable Long course_id,
 		@Nullable Long student_id,
 		@Nullable LocalDate enrollment_date,

@@ -6,7 +6,6 @@ import jakarta.validation.constraints.NotNull;
 import java.time.LocalDateTime;
 
 public record LessonUpdateIdDTO(
-		@NotNull Long id,
 		@Nullable String name,
 		@Nullable LocalDateTime datetime,
 		@Nullable Long professor_id,

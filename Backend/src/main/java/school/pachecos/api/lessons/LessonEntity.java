@@ -41,10 +41,10 @@ public class LessonEntity extends BaseApiEntity<LessonUpdateEntityDTO> {
 	@JoinColumn(name = "professor", nullable = false)
 	private UserEntity professor;
 
-	@OneToMany(mappedBy = "lesson")
+	@OneToMany(mappedBy = "lesson", cascade = CascadeType.ALL)
 	private List<TaskEntity> tasks;
 
-	@ManyToMany(mappedBy = "lessons")
+	@ManyToMany(mappedBy = "lessons", cascade = CascadeType.ALL)
 	private List<CourseEntity> courses;
 
 	public LessonEntity(LessonCreateEntityDTO user_info) {

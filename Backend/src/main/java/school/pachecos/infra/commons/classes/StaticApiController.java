@@ -12,8 +12,8 @@ import school.pachecos.infra.commons.interfaces.BaseReturnDTO;
 import java.net.URI;
 
 @SuppressWarnings("rawtypes")
-public abstract class StaticApiController<Entity extends BaseApiEntity, CreateDTO, UpdateDTO, ReturnDTO extends BaseReturnDTO, Service extends BaseApiService<Entity, CreateDTO, UpdateDTO, ReturnDTO>>
-    extends BaseApiController<Entity, CreateDTO, UpdateDTO, ReturnDTO, Service> {
+public abstract class StaticApiController<Entity extends BaseApiEntity, CreateIdDTO, UpdateDTO, ReturnDTO extends BaseReturnDTO, Service extends BaseApiService<Entity, CreateIdDTO, UpdateDTO, ReturnDTO>>
+    extends BaseApiController<Entity, CreateIdDTO, UpdateDTO, ReturnDTO, Service> {
 
   @GetMapping
   @Override
@@ -31,7 +31,7 @@ public abstract class StaticApiController<Entity extends BaseApiEntity, CreateDT
   @PostMapping
   @Transactional
   @Override
-  public ResponseEntity<ReturnDTO> create(@RequestBody @Valid CreateDTO dto) {
+  public ResponseEntity<ReturnDTO> create(@RequestBody @Valid CreateIdDTO dto) {
     return super.create(dto);
   }
 

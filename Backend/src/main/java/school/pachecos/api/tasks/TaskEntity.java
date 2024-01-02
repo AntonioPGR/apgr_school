@@ -32,11 +32,11 @@ public class TaskEntity extends BaseApiEntity<TaskUpdateEntityDTO> {
 	@Nullable
 	private String description;
 
-	@ManyToOne
+	@ManyToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "lesson", nullable = false)
 	private LessonEntity lesson;
-	@ManyToMany
-	@JoinTable(name = "Users_Tasks", joinColumns = @JoinColumn(name = "task"), inverseJoinColumns = @JoinColumn(name = "student"))
+	@ManyToMany(cascade = CascadeType.ALL)
+	@JoinTable(name = "Students_Tasks", joinColumns = @JoinColumn(name = "task"), inverseJoinColumns = @JoinColumn(name = "student"))
 	private List<UserEntity> students;
 
 	public TaskEntity(TaskCreateEntityDTO taskDTO) {

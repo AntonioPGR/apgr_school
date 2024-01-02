@@ -19,17 +19,17 @@ public class EnrollmentService extends BaseApiService<EnrollmentEntity, Enrollme
 	@Autowired
 	UserRepository user_repository;
 
-	public EnrollmentReturnDTO create(EnrollmentCreateIdDTO create_id_dto) {
-		CourseEntity course = course_repository.getReferenceById(create_id_dto.course_id());
-		UserEntity student = user_repository.getReferenceById(create_id_dto.student_id());
+	public EnrollmentReturnDTO create(EnrollmentCreateIdDTO dto) {
+		CourseEntity course = course_repository.getReferenceById(dto.course_id());
+		UserEntity student = user_repository.getReferenceById(dto.student_id());
 
-		return this.create(new EnrollmentCreateEntityDTO(course, student));
+		return this.create(new EnrollmentCreateEntityDTO(dto, course, student));
 	}
 
-	public EnrollmentReturnDTO update (EnrollmentUpdateIdDTO edit_id_dto) {
-		CourseEntity course = edit_id_dto.course_id() != null? course_repository.getReferenceById(edit_id_dto.course_id()) : null;
-		UserEntity student = edit_id_dto.student_id() != null? user_repository.getReferenceById(edit_id_dto.student_id()) : null;
-		return super.update(edit_id_dto.course_id(), new EnrollmentUpdateEntityDTO(edit_id_dto, course, student));
+	public EnrollmentReturnDTO update (Long id, EnrollmentUpdateIdDTO dto) {
+		CourseEntity course = dto.course_id() != null? course_repository.getReferenceById(dto.course_id()) : null;
+		UserEntity student = dto.student_id() != null? user_repository.getReferenceById(dto.student_id()) : null;
+		return super.update(id, new EnrollmentUpdateEntityDTO(dto, course, student));
 	}
 
 	@Override

@@ -60,7 +60,7 @@ public class UserEntity extends BaseApiEntity<UserUpdateDTO> implements UserDeta
 	@OneToMany(mappedBy = "professor", cascade = CascadeType.ALL)
 	private List<LessonEntity> lessons;
 
-	@ManyToMany(mappedBy = "students")
+	@ManyToMany(mappedBy = "students", cascade = CascadeType.ALL)
 	private List<TaskEntity> tasks;
 
 	// CONSTRUCTORS

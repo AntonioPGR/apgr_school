@@ -21,9 +21,9 @@ public class TaskService extends BaseApiService<TaskEntity, TaskCreateEntityDTO,
 		return this.create(new TaskCreateEntityDTO(task_dto, lesson_entity));
 	}
 
-	public TaskReturnDTO update(@Valid TaskUpdateIdDTO update_dto) {
+	public TaskReturnDTO update(Long id, @Valid TaskUpdateIdDTO update_dto) {
 		LessonEntity lesson_entity = update_dto.lesson_id() != null ? getLesson(update_dto.lesson_id()) : null;
-		return this.update(update_dto.id(), new TaskUpdateEntityDTO(update_dto, lesson_entity));
+		return this.update(id, new TaskUpdateEntityDTO(update_dto, lesson_entity));
 	}
 
 	public LessonEntity getLesson(Long id) {

@@ -12,11 +12,12 @@ import java.time.LocalDate;
 public record EnrollmentCreateEntityDTO(
 		@NotNull CourseEntity course,
 		@NotNull UserEntity student,
-		@NotNull LocalDate enrollment_date
+		@NotNull LocalDate enrollment_date,
+		@Nullable LocalDate end_date
 ) {
 
-	public EnrollmentCreateEntityDTO(CourseEntity course, UserEntity student){
-		this(course, student, LocalDate.now());
+	public EnrollmentCreateEntityDTO(EnrollmentCreateIdDTO dto, CourseEntity course, UserEntity student){
+		this(course, student, dto.enrollment_date() != null? dto.enrollment_date() : LocalDate.now(), dto.end_date());
 	}
 
 }

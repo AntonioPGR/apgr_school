@@ -6,7 +6,6 @@ import jakarta.validation.constraints.NotNull;
 import java.time.LocalDateTime;
 
 public record TaskUpdateIdDTO(
-		@NotNull Long id,
 		@Nullable String title,
 		@Nullable LocalDateTime dueDate,
 		@Nullable String description,

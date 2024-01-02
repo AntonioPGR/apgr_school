@@ -25,12 +25,12 @@ public class LessonService
 
 	public LessonReturnDTO create(LessonCreateIdDTO lesson_dto) {
 		UserEntity professor = getProfessor(lesson_dto.professor_id());
-		return this.create(new LessonCreateEntityDTO(lesson_dto, professor));
+		return super.create(new LessonCreateEntityDTO(lesson_dto, professor));
 	}
 
-	public LessonReturnDTO update(LessonUpdateIdDTO lesson_info) {
+	public LessonReturnDTO update(Long id, LessonUpdateIdDTO lesson_info) {
 		UserEntity professor = lesson_info.professor_id() != null ? getProfessor(lesson_info.professor_id()) : null;
-		return super.update(lesson_info.id(), new LessonUpdateEntityDTO(lesson_info, professor));
+		return super.update(id, new LessonUpdateEntityDTO(lesson_info, professor));
 	}
 
 	private UserEntity getProfessor(Long id) {
