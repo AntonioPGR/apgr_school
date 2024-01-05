@@ -6,15 +6,19 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import school.pachecos.api.users.dtos.*;
-import school.pachecos.infra.commons.classes.StaticApiController;
+import school.pachecos.infra.commons.classes.BaseController;
 import school.pachecos.infra.uri.URIService;
 import java.net.URI;
 import java.util.List;
 
 @RestController
 @RequestMapping("/users")
-public class UserController
-		extends StaticApiController<UserEntity, UserCreateDTO, UserUpdateDTO, UserReturnDTO, UserService> {
+public class UserController extends BaseController<
+	UserCreateDTO,
+	UserUpdateDTO, 
+	UserReturnDTO, 
+	UserService
+>{
 
 	@Autowired
 	UserService user_service;
@@ -37,13 +41,13 @@ public class UserController
 
 	@DeleteMapping("/deactivate/{id}")
 	@Transactional
-	public ResponseEntity deactivateUser(@PathVariable("id") Long id) {
+	public ResponseEntity<Object> deactivateUser(@PathVariable("id") Long id) {
 		user_service.deactive(id);
 		return ResponseEntity.noContent().build();
 	}
 
 	@Override
-	protected String getBaseUriPath() {
+	public String getBaseUriPath() {
 		return "/users";
 	}
 }

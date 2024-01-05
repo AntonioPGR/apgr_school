@@ -11,7 +11,7 @@ import school.pachecos.api.lessons.dto.LessonCreateEntityDTO;
 import school.pachecos.api.lessons.dto.LessonUpdateEntityDTO;
 import school.pachecos.api.tasks.TaskEntity;
 import school.pachecos.api.users.UserEntity;
-import school.pachecos.infra.commons.classes.BaseApiEntity;
+import school.pachecos.infra.commons.interfaces.EntityInterface;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -24,7 +24,7 @@ import java.util.stream.Collectors;
 @Setter(AccessLevel.PRIVATE)
 @NoArgsConstructor
 @AllArgsConstructor
-public class LessonEntity extends BaseApiEntity<LessonUpdateEntityDTO> {
+public class LessonEntity implements EntityInterface<LessonUpdateEntityDTO> {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;

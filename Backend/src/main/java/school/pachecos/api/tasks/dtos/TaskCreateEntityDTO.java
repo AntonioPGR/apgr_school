@@ -14,7 +14,8 @@ public record TaskCreateEntityDTO(
 		@NotNull LessonEntity lesson
 )
 {
-	public TaskCreateEntityDTO(TaskCreateIdDTO new_task_id, LessonEntity lesson_entity) {
-		this(new_task_id.title(), new_task_id.due_date(), new_task_id.description(), lesson_entity);
+	public TaskCreateEntityDTO(TaskCreateIdDTO dto, LessonEntity lesson_entity) {
+		this(dto.title(), dto.due_date(), dto.description(), lesson_entity);
 	}
 }
+

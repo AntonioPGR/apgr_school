@@ -25,7 +25,7 @@ public class AuthenticationController {
 	private AuthenticationManager authentication_manager;
 
 	@PostMapping("/login")
-	public ResponseEntity login(@RequestBody @Valid LoginDTO login_info){
+	public ResponseEntity<LoginResponseDTO> login(@RequestBody @Valid LoginDTO login_info){
 		Authentication auth = authenticateUser(login_info);
 		LoginResponseDTO response_dto = generateTokenResponse(auth);
 		return ResponseEntity.ok().body(response_dto);

@@ -1,19 +1,28 @@
 package school.pachecos.api.enrollments;
 
+import java.time.LocalDate;
+
 import jakarta.annotation.Nullable;
-import jakarta.persistence.*;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Past;
 import jakarta.validation.constraints.PastOrPresent;
-import lombok.*;
+import lombok.AccessLevel;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 import school.pachecos.api.courses.CourseEntity;
 import school.pachecos.api.enrollments.dtos.EnrollmentCreateEntityDTO;
 import school.pachecos.api.enrollments.dtos.EnrollmentUpdateEntityDTO;
 import school.pachecos.api.users.UserEntity;
-import school.pachecos.infra.commons.classes.BaseApiEntity;
-
-import java.sql.Date;
-import java.time.LocalDate;
+import school.pachecos.infra.commons.interfaces.EntityInterface;
 
 @Entity(name = "EnrollmentEntity")
 @Table(name = "Course_Students")
@@ -21,7 +30,7 @@ import java.time.LocalDate;
 @Setter(AccessLevel.PRIVATE)
 @NoArgsConstructor
 @AllArgsConstructor
-public class EnrollmentEntity extends BaseApiEntity<EnrollmentUpdateEntityDTO> {
+public class EnrollmentEntity implements EntityInterface<EnrollmentUpdateEntityDTO> {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;

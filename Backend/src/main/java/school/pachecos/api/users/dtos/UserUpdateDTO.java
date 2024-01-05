@@ -6,7 +6,6 @@ import jakarta.validation.constraints.NotNull;
 import java.time.LocalDate;
 
 public record UserUpdateDTO(
-		@NotNull Long id,
 		@Nullable String name,
 		@Nullable LocalDate birth_date,
 		@Nullable String email,

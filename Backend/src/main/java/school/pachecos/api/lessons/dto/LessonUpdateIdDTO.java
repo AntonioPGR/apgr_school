@@ -1,8 +1,6 @@
 package school.pachecos.api.lessons.dto;
 
 import jakarta.annotation.Nullable;
-import jakarta.validation.constraints.NotNull;
-
 import java.time.LocalDateTime;
 
 public record LessonUpdateIdDTO(

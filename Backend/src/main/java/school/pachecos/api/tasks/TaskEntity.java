@@ -9,7 +9,7 @@ import school.pachecos.api.lessons.LessonEntity;
 import school.pachecos.api.tasks.dtos.TaskCreateEntityDTO;
 import school.pachecos.api.tasks.dtos.TaskUpdateEntityDTO;
 import school.pachecos.api.users.UserEntity;
-import school.pachecos.infra.commons.classes.BaseApiEntity;
+import school.pachecos.infra.commons.interfaces.EntityInterface;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -20,7 +20,7 @@ import java.util.List;
 @Setter(AccessLevel.PRIVATE)
 @NoArgsConstructor
 @AllArgsConstructor
-public class TaskEntity extends BaseApiEntity<TaskUpdateEntityDTO> {
+public class TaskEntity implements EntityInterface<TaskUpdateEntityDTO> {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;

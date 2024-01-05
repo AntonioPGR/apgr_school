@@ -3,33 +3,40 @@ package school.pachecos.api.enrollments;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import school.pachecos.api.courses.CourseEntity;
-import school.pachecos.api.courses.CourseRepository;
+import school.pachecos.api.courses.CourseService;
 import school.pachecos.api.enrollments.dtos.*;
 import school.pachecos.api.users.UserEntity;
-import school.pachecos.api.users.UserRepository;
-import school.pachecos.infra.commons.classes.BaseApiService;
+import school.pachecos.api.users.UserService;
+import school.pachecos.infra.commons.classes.BaseService;
 
 @Service
-public class EnrollmentService extends BaseApiService<EnrollmentEntity, EnrollmentCreateEntityDTO, EnrollmentUpdateEntityDTO, EnrollmentReturnDTO> {
+public class EnrollmentService extends BaseService<
+	EnrollmentEntity,
+	EnrollmentCreateIdDTO,
+	EnrollmentCreateEntityDTO,
+	EnrollmentUpdateIdDTO,
+	EnrollmentUpdateEntityDTO,
+	EnrollmentReturnDTO,
+	EnrollmentRepository
+> {
 
 	@Autowired
-	EnrollmentRepository enrollment_repository;
+  UserService user_service;
 	@Autowired
-	CourseRepository course_repository;
-	@Autowired
-	UserRepository user_repository;
+  CourseService course_service;
 
-	public EnrollmentReturnDTO create(EnrollmentCreateIdDTO dto) {
-		CourseEntity course = course_repository.getReferenceById(dto.course_id());
-		UserEntity student = user_repository.getReferenceById(dto.student_id());
-
-		return this.create(new EnrollmentCreateEntityDTO(dto, course, student));
+	@Override
+	protected EnrollmentCreateEntityDTO convertToCreateDTO(EnrollmentCreateIdDTO dto) {
+		UserEntity student = user_service.getEntityById(dto.student_id());
+		CourseEntity course = course_service.getEntityById(dto.course_id());
+		return new EnrollmentCreateEntityDTO(dto, course, student);
 	}
 
-	public EnrollmentReturnDTO update (Long id, EnrollmentUpdateIdDTO dto) {
-		CourseEntity course = dto.course_id() != null? course_repository.getReferenceById(dto.course_id()) : null;
-		UserEntity student = dto.student_id() != null? user_repository.getReferenceById(dto.student_id()) : null;
-		return super.update(id, new EnrollmentUpdateEntityDTO(dto, course, student));
+	@Override
+	protected EnrollmentUpdateEntityDTO convertToUpdateDTO(EnrollmentUpdateIdDTO dto) {
+		UserEntity student = dto.student_id() != null? user_service.getEntityById(dto.student_id()):null;
+		CourseEntity course = dto.course_id()!=null?course_service.getEntityById(dto.course_id()):null;
+		return new EnrollmentUpdateEntityDTO(dto, course, student);
 	}
 
 	@Override

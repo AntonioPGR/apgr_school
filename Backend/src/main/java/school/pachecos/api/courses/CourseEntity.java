@@ -5,15 +5,14 @@ import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import lombok.*;
-import org.hibernate.annotations.GenericGenerator;
 import school.pachecos.api.courses.dtos.CourseUpdateDTO;
 import school.pachecos.api.courses.dtos.CourseCreateDTO;
 import school.pachecos.api.lessons.LessonEntity;
 import school.pachecos.api.users.UserEntity;
-import school.pachecos.infra.commons.classes.BaseApiEntity;
+import school.pachecos.infra.commons.interfaces.EntityInterface;
 
 import java.util.List;
-import java.util.UUID;
+
 
 @Entity(name = "CourseEntity")
 @Table(name = "Courses")
@@ -21,7 +20,7 @@ import java.util.UUID;
 @Setter(AccessLevel.PRIVATE)
 @NoArgsConstructor
 @AllArgsConstructor
-public class CourseEntity extends BaseApiEntity<CourseUpdateDTO> {
+public class CourseEntity implements EntityInterface<CourseUpdateDTO> {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)

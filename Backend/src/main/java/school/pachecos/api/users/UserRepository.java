@@ -2,15 +2,16 @@ package school.pachecos.api.users;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.security.core.userdetails.UserDetails;
 
+import org.springframework.stereotype.Repository;
+
 import java.time.LocalDate;
 import java.util.Collection;
-import java.util.List;
 
-public interface UserRepository extends JpaRepository<UserEntity, Long> {
+@Repository
+public interface UserRepository extends org.springframework.data.jpa.repository.JpaRepository<UserEntity, Long> {
 
 	@Query(value = "SELECT u FROM UserEntity u WHERE " +
 			"u.name LIKE CONCAT('%', :name, '%') " +

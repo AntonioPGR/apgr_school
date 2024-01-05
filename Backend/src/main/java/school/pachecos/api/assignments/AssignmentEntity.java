@@ -8,7 +8,7 @@ import school.pachecos.api.assignments.dtos.AssignmentCreateEntityDTO;
 import school.pachecos.api.assignments.dtos.AssignmentUpdateEntityDTO;
 import school.pachecos.api.tasks.TaskEntity;
 import school.pachecos.api.users.UserEntity;
-import school.pachecos.infra.commons.classes.BaseApiEntity;
+import school.pachecos.infra.commons.interfaces.EntityInterface;
 
 @Entity(name = "StudentsTasksEntity")
 @Table(name = "Students_Tasks")
@@ -16,7 +16,7 @@ import school.pachecos.infra.commons.classes.BaseApiEntity;
 @Setter(AccessLevel.PRIVATE)
 @AllArgsConstructor
 @NoArgsConstructor
-public class AssignmentEntity extends BaseApiEntity<AssignmentUpdateEntityDTO> {
+public class AssignmentEntity implements EntityInterface<AssignmentUpdateEntityDTO> {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)

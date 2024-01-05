@@ -2,9 +2,7 @@ package school.pachecos.api.lessons.dto;
 
 import jakarta.annotation.Nullable;
 import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
 import school.pachecos.api.users.UserEntity;
-
 import java.time.LocalDateTime;
 
 public record LessonUpdateEntityDTO(

@@ -4,37 +4,35 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import school.pachecos.api.lessons.dto.*;
 import school.pachecos.api.users.UserEntity;
-import school.pachecos.api.users.UserRepository;
-import school.pachecos.infra.commons.classes.BaseApiService;
+import school.pachecos.api.users.UserService;
+import school.pachecos.infra.commons.classes.BaseService;
 
-import java.util.List;
 
 @Service
-public class LessonService
-		extends BaseApiService<LessonEntity, LessonCreateEntityDTO, LessonUpdateEntityDTO, LessonReturnDTO> {
+public class LessonService extends BaseService<
+	LessonEntity,
+	LessonCreateIdDTO,
+	LessonCreateEntityDTO,
+	LessonUpdateIdDTO,
+	LessonUpdateEntityDTO,
+	LessonReturnDTO,
+	LessonRepository
+> {
 
 	@Autowired
-	LessonRepository lesson_repository;
-	@Autowired
-	UserRepository user_repository;
+	UserService user_service;
 
-	public List<LessonReturnDTO> searchLessons(LessonSearchDTO search) {
-		List<LessonEntity> search_results = lesson_repository.searchLessons(search.name(), search.datetime());
-		return search_results.stream().map(LessonReturnDTO::new).toList();
+	@Override
+	protected LessonCreateEntityDTO convertToCreateDTO(LessonCreateIdDTO dto) {
+		UserEntity professor = user_service.getEntityById(dto.professor_id());
+		return new LessonCreateEntityDTO(dto, professor);
 	}
 
-	public LessonReturnDTO create(LessonCreateIdDTO lesson_dto) {
-		UserEntity professor = getProfessor(lesson_dto.professor_id());
-		return super.create(new LessonCreateEntityDTO(lesson_dto, professor));
-	}
-
-	public LessonReturnDTO update(Long id, LessonUpdateIdDTO lesson_info) {
-		UserEntity professor = lesson_info.professor_id() != null ? getProfessor(lesson_info.professor_id()) : null;
-		return super.update(id, new LessonUpdateEntityDTO(lesson_info, professor));
-	}
-
-	private UserEntity getProfessor(Long id) {
-		return user_repository.getReferenceById(id);
+	@Override
+	protected LessonUpdateEntityDTO convertToUpdateDTO(LessonUpdateIdDTO dto) {
+		Long professor_id = dto.professor_id();
+		UserEntity professor = professor_id != null? user_service.getEntityById(professor_id) : null;
+		return new LessonUpdateEntityDTO(dto, professor);
 	}
 
 	@Override

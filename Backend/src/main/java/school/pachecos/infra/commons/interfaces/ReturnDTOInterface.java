@@ -1,6 +1,6 @@
 package school.pachecos.infra.commons.interfaces;
 
-public interface BaseReturnDTO {
+public interface ReturnDTOInterface {
 
 	Long id();
 

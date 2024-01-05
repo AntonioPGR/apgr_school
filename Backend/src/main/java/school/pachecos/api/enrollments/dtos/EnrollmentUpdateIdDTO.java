@@ -1,10 +1,8 @@
 package school.pachecos.api.enrollments.dtos;
 
-import jakarta.annotation.Nullable;
-import jakarta.validation.constraints.NotNull;
-
-import java.sql.Date;
 import java.time.LocalDate;
+
+import jakarta.annotation.Nullable;
 
 public record EnrollmentUpdateIdDTO(
 		@Nullable Long course_id,

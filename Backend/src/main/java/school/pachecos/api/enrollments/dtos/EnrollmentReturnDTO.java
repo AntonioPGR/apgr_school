@@ -5,7 +5,7 @@ import jakarta.validation.constraints.NotNull;
 import school.pachecos.api.courses.dtos.CourseReturnDTO;
 import school.pachecos.api.enrollments.EnrollmentEntity;
 import school.pachecos.api.users.dtos.UserReturnDTO;
-import school.pachecos.infra.commons.interfaces.BaseReturnDTO;
+import school.pachecos.infra.commons.interfaces.ReturnDTOInterface;
 
 import java.time.LocalDate;
 
@@ -14,7 +14,7 @@ public record EnrollmentReturnDTO(
 		@NotNull CourseReturnDTO course,
 		@NotNull UserReturnDTO student,
 		@NotNull LocalDate enrollment_date,
-		@Nullable LocalDate end_date) implements BaseReturnDTO {
+		@Nullable LocalDate end_date) implements ReturnDTOInterface {
 
 	public EnrollmentReturnDTO(EnrollmentEntity entity) {
 		this(

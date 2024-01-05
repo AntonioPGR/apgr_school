@@ -1,11 +1,10 @@
 package school.pachecos.api.enrollments.dtos;
 
+import java.time.LocalDate;
+
 import jakarta.annotation.Nullable;
-import jakarta.validation.constraints.NotNull;
 import school.pachecos.api.courses.CourseEntity;
 import school.pachecos.api.users.UserEntity;
-
-import java.time.LocalDate;
 
 public record EnrollmentUpdateEntityDTO(
 		@Nullable CourseEntity course,

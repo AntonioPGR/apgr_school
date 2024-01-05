@@ -1,33 +1,45 @@
 package school.pachecos.api.users;
 
-import jakarta.annotation.Nullable;
-import jakarta.persistence.*;
-import jakarta.validation.constraints.*;
+import java.time.LocalDate;
+import java.util.Collection;
+import java.util.List;
+
 import lombok.*;
 import org.hibernate.validator.constraints.Length;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+
+import jakarta.annotation.Nullable;
+import jakarta.persistence.CascadeType;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.ManyToMany;
+import jakarta.persistence.OneToMany;
+import jakarta.persistence.Table;
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Past;
+import jakarta.validation.constraints.Pattern;
 import school.pachecos.api.lessons.LessonEntity;
 import school.pachecos.api.tasks.TaskEntity;
 import school.pachecos.api.users.dtos.UserCreateDTO;
 import school.pachecos.api.users.dtos.UserUpdateDTO;
-import school.pachecos.infra.commons.classes.BaseApiEntity;
-
-import java.time.LocalDate;
-import java.util.Collection;
-import java.util.List;
-import java.util.UUID;
+import school.pachecos.infra.commons.interfaces.EntityInterface;
 
 @Table(name = "Users")
 @Entity(name = "UserEntity")
 @Getter
 @Setter(AccessLevel.PRIVATE)
-@NoArgsConstructor
+@EqualsAndHashCode
 @AllArgsConstructor
-public class UserEntity extends BaseApiEntity<UserUpdateDTO> implements UserDetails {
-
+@NoArgsConstructor
+public class UserEntity implements EntityInterface<UserUpdateDTO>, UserDetails {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
@@ -62,20 +74,6 @@ public class UserEntity extends BaseApiEntity<UserUpdateDTO> implements UserDeta
 
 	@ManyToMany(mappedBy = "students", cascade = CascadeType.ALL)
 	private List<TaskEntity> tasks;
-
-	// CONSTRUCTORS
-	public UserEntity(String name, LocalDate birth_date, String email, String cellphone, String password, String gender,
-			@Nullable String photo_path) {
-		setName(name);
-		setBirth_date(birth_date);
-		setEmail(email);
-		setCellphone(cellphone);
-		setPassword(password);
-		setGender(gender);
-		setPhoto_path(photo_path);
-		activete();
-		setPermissions("ROLE_USER");
-	}
 
 	public UserEntity(UserCreateDTO user_info) {
 		setName(user_info.name());
